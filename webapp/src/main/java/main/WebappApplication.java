@@ -1,13 +1,13 @@
-package com.example.registration;
+package main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RegistrationApplication {
+public class WebappApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RegistrationApplication.class, args);
+		SpringApplication.run(WebappApplication.class, args);
 	}
 
 }
