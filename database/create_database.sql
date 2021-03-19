@@ -20,6 +20,7 @@ CREATE TABLE `registration_webapp`.`rooms` (
   `is_accessible` TINYINT DEFAULT 0,
   `is_available` TINYINT DEFAULT 0)
 COMMENT = 'This table contains data on each room';
-ALTER TABLE classes ADD CONSTRAINT fk_subject_id FOREIGN KEY (subject_id) REFERENCES subjects(subject_id);
-ALTER TABLE classes ADD CONSTRAINT fk_room_id FOREIGN KEY (room_id) REFERENCES rooms(room_id);
+use registration_webapp;
+#ALTER TABLE classes ADD CONSTRAINT fk_subject_id FOREIGN KEY (subject_id) REFERENCES subjects(subject_id);
+#ALTER TABLE classes ADD CONSTRAINT fk_room_id FOREIGN KEY (room_id) REFERENCES rooms(room_id);
 
