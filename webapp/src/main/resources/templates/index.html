@@ -15,44 +15,40 @@
 			<div class="col">
 				<h1>LIST OF CLASSES</h1>
 			</div>
-            <!--
 			<div class="col">
-				<a th:href="@{/addOffer}" class="btn btn-primary float-right">Add</a>
+				<a th:href="@{/addCourse}" class="btn btn-primary float-right">Add</a>
 			</div>
-            -->
 		</div>
 		
 		<div class="row">
 			<table class="table table-hover" th:if="${!courses.empty}">
 				<thead>
 					<tr>
-						<th scope="col">classId</th>
+						<th scope="col">#</th>
+						<th scope="col">code</th>
 						<th scope="col">subjectId</th>
 						<th scope="col">roomId</th>
 						<th scope="col">timeCode</th>
 						<th scope="col">dayCode</th>
-						<th scope="col">isFull</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="course : ${courses}">				
-						<td th:text="${course.classId}"></td>
+					<tr th:each="course : ${courses}">
+						<td th:text="${courseStat.count}"></td>					
+						<td th:text="${course.code}"></td>
 						<td th:text="${course.subjectId}"></td>
 						<td th:text="${course.roomId}"></td>
 						<td th:text="${course.timeCode}"></td>
 						<td th:text="${course.dayCode}"></td>
-						<td th:text="${course.isFull}"></td>
-						<!--  
-						<td><a class="btn btn-primary" th:if="${course.id} &gt; 0" th:href="@{/editOffer/} + ${course.id}">Edit</a></td>
-						<td><a class="btn btn-danger" th:if="${course.id} &gt; 0" th:href="@{/deleteOffer/} + ${course.id}">Delete</a></td>
-				    	-->
+						<td><a class="btn btn-primary" th:if="${course.id} &gt; 0" th:href="@{/editCourse/} + ${course.id}">Edit</a></td>
+						<td><a class="btn btn-danger" th:if="${course.id} &gt; 0" th:href="@{/deleteCourse/} + ${course.id}">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		
 		<div class="row" th:if="${courses.empty}">
-			<h3>There are no classes available</h3>
+			<h4>There are no classes available</h4>
 		</div>
 	</div>
 </body>
