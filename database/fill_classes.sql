@@ -1,3 +1,4 @@
+use registration_webapp;
 INSERT INTO classes
 VALUES 
    ("A-111-01","S-123-AB",10,1,2,0),
