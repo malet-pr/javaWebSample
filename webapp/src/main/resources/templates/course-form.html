@@ -33,16 +33,20 @@
 					</div>
 					<div class="form-group">
 						<label>Room Number</label>
-						<input type="text" class="form-control" th:field="*{roomId}">
+						<input type="text" class="form-control" th:field="*{room}">
 					</div>
 					<div class="form-group">
-						<label>Time Code</label>
-						<input type="text" class="form-control" th:field="*{timeCode}">
-					</div>
-					<div class="form-group">
-						<label>Day Code</label>
-						<input type="text" class="form-control" th:field="*{dayCode}">
-					</div>
+						<label>Select Time Slot</label>
+						<select name="time" class="form-control">
+							<option th:each="time : ${TIMES}" th:value="${time}" th:text="${time}"></option>
+						</select>
+					</div>	
+    				<div class="form-group">
+    					<label>Select Days</label>
+						<select name="day" class="form-control">
+							<option th:each="day : ${DAYS}" th:value="${day}" th:text="${day}"></option>
+						</select>			
+					</div>		
 					<div class="form-row">
 						<div class="col">
 							<input class="btn btn-success" type="submit" value="Submit">

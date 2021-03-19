@@ -26,10 +26,10 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">code</th>
-						<th scope="col">subjectId</th>
-						<th scope="col">roomId</th>
-						<th scope="col">timeCode</th>
-						<th scope="col">dayCode</th>
+						<th scope="col">subject</th>
+						<th scope="col">room</th>
+						<th scope="col">time</th>
+						<th scope="col">days</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,9 +37,9 @@
 						<td th:text="${courseStat.count}"></td>					
 						<td th:text="${course.code}"></td>
 						<td th:text="${course.subjectId}"></td>
-						<td th:text="${course.roomId}"></td>
-						<td th:text="${course.timeCode}"></td>
-						<td th:text="${course.dayCode}"></td>
+						<td th:text="${course.room}"></td>
+						<td th:text="${course.time}"></td>
+						<td th:text="${course.day}"></td>
 						<td><a class="btn btn-primary" th:if="${course.id} &gt; 0" th:href="@{/editCourse/} + ${course.id}">Edit</a></td>
 						<td><a class="btn btn-danger" th:if="${course.id} &gt; 0" th:href="@{/deleteCourse/} + ${course.id}">Delete</a></td>
 					</tr>

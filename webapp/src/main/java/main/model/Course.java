@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "classes")
 public class Course {
@@ -15,64 +16,86 @@ public class Course {
 	private int id;
 	private String code;
 	private String subjectId;
-	private int roomId;
-	private int timeCode;
-	private int dayCode;
-	
+	private int room;
+	private String time;
+	private String day;
+	private boolean isFull;
+
 	public Course() {}
 	
 	/**
 	 * @param id
 	 * @param code
 	 * @param subjectId
-	 * @param roomId
-	 * @param timeCode
-	 * @param dayCode
+	 * @param room
+	 * @param time
+	 * @param day
+	 * @param isFull
 	 */
-	public Course(int id, String code, String subjectId, int roomId, int timeCode, int dayCode) {
+	public Course(int id, String code, String subjectId, int room, String time, String day) {
 		this.id = id;
 		this.code = code;
 		this.subjectId = subjectId;
-		this.roomId = roomId;
-		this.timeCode = timeCode;
-		this.dayCode = dayCode;
+		this.room = room;
+		this.time = time;
+		this.day = day;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getCode() {
 		return code;
 	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	public String getSubjectId() {
 		return subjectId;
 	}
+
 	public void setSubjectId(String subjectId) {
 		this.subjectId = subjectId;
 	}
-	public int getRoomId() {
-		return roomId;
+
+	public int getRoom() {
+		return room;
 	}
-	public void setRoomId(int roomId) {
-		this.roomId = roomId;
+
+	public void setRoom(int room) {
+		this.room = room;
 	}
-	public int getTimeCode() {
-		return timeCode;
+
+	public String getTime() {
+		return time;
 	}
-	public void setTimeCode(int timeCode) {
-		this.timeCode = timeCode;
+
+	public void setTime(String time) {
+		this.time = time;
 	}
-	public int getDayCode() {
-		return dayCode;
+
+	public String getDay() {
+		return day;
 	}
-	public void setDayCode(int dayCode) {
-		this.dayCode = dayCode;
+
+	public void setDay(String day) {
+		this.day = day;
 	}
+
+	public boolean isFull() {
+		return isFull;
+	}
+
+	public void setFull(boolean isFull) {
+		this.isFull = isFull;
+	}
+	
 }
 
