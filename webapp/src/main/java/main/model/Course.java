@@ -13,7 +13,6 @@ import javax.persistence.Table;
 public class Course {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "code")
 	private String code;
 	private String subjectId;
@@ -25,7 +24,6 @@ public class Course {
 	public Course() {}
 	
 	/**
-	 * @param id
 	 * @param code
 	 * @param subjectId
 	 * @param room
@@ -33,24 +31,13 @@ public class Course {
 	 * @param day
 	 * @param isFull
 	 */
-	public Course(/*int Id,*/ String code, String subjectId, int room, String time, String day) {
-		//this.id = id;
+	public Course(String code, String subjectId, int room, String time, String day) {
 		this.code = code;
 		this.subjectId = subjectId;
 		this.room = room;
 		this.time = time;
 		this.day = day;
 	}
-
-	/*
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	*/
 
 	public String getCode() {
 		return code;
