@@ -16,7 +16,7 @@
 				<h1>LIST OF CLASSES</h1>
 			</div>
 			<div class="col">
-				<a th:href="@{/addCourse}" class="btn btn-primary float-right">Add</a>
+				<a th:href="@{/addCourse}" class="btn btn-primary btn-lg">Add New Class</a>
 			</div>
 		</div>
 		
@@ -24,7 +24,6 @@
 			<table class="table table-hover" th:if="${!courses.empty}">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
 						<th scope="col">code</th>
 						<th scope="col">subject</th>
 						<th scope="col">room</th>
@@ -33,15 +32,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="course : ${courses}">
-						<td th:text="${courseStat.count}"></td>					
+					<tr th:each="course : ${courses}">			
 						<td th:text="${course.code}"></td>
 						<td th:text="${course.subjectId}"></td>
 						<td th:text="${course.room}"></td>
 						<td th:text="${course.time}"></td>
 						<td th:text="${course.day}"></td>
-						<td><a class="btn btn-primary" th:if="${course.id} &gt; 0" th:href="@{/editCourse/} + ${course.id}">Edit</a></td>
-						<td><a class="btn btn-danger" th:if="${course.id} &gt; 0" th:href="@{/deleteCourse/} + ${course.id}">Delete</a></td>
+						<td>
+						    <a class="btn btn-warning btn-sm" th:if="${course.code} != null" th:href="@{/editCourse/} + ${course.code}">Edit</a>
+						    <a class="btn btn-danger btn-sm" th:if="${course.code} != null" th:href="@{/deleteCourse/} + ${course.code}">Delete</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>

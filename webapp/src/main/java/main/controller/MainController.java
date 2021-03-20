@@ -58,8 +58,8 @@ public class MainController {
 	}
 	
 	@GetMapping("/deleteCourse/{id}")
-	public String deleteOffer(@PathVariable int id) {
-		if (id > 0) {
+	public String deleteOffer(@PathVariable String id) {
+		if (id != "") {
 			Course course = courseService.getById(id);
 			if(course != null) {
 				courseService.delete(id);
@@ -69,11 +69,11 @@ public class MainController {
 	}
 	
 	@GetMapping("/editCourse/{id}")
-	public String editCourseString(@PathVariable int id, Model model) {
-		if(id > 0) {
-			Course course = courseService.getById(id);
+	public String editCourseString(@PathVariable String id, Model model) {
+		if(id != "") {
 			model.addAttribute("DAYS", DAYS);
 			model.addAttribute("TIMES", TIMES);
+			Course course = courseService.getById(id);
 			if(course != null) {
 				model.addAttribute("course", course);
 				return "course-form";
@@ -81,6 +81,5 @@ public class MainController {
 		}
 		return "redirect:/";
 	}
-
 	
 }

@@ -1,5 +1,6 @@
 package main.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,10 +11,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "classes")
 public class Course {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "code")
 	private String code;
 	private String subjectId;
 	private int room;
@@ -32,8 +33,8 @@ public class Course {
 	 * @param day
 	 * @param isFull
 	 */
-	public Course(int id, String code, String subjectId, int room, String time, String day) {
-		this.id = id;
+	public Course(/*int Id,*/ String code, String subjectId, int room, String time, String day) {
+		//this.id = id;
 		this.code = code;
 		this.subjectId = subjectId;
 		this.room = room;
@@ -41,6 +42,7 @@ public class Course {
 		this.day = day;
 	}
 
+	/*
 	public int getId() {
 		return id;
 	}
@@ -48,6 +50,7 @@ public class Course {
 	public void setId(int id) {
 		this.id = id;
 	}
+	*/
 
 	public String getCode() {
 		return code;
