@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS  subjects (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+name VARCHAR(30) NOT NULL, 
+description VARCHAR(1000)
+);
+
+CREATE TABLE IF NOT EXISTS  classes (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+code VARCHAR(10) NOT NULL, 
+subject_id INT NOT NULL,
+professor_id INT,
+time VARCHAR(15),
+day VARCHAR(15),
+max_capacity INT
+);
+
+
+
+

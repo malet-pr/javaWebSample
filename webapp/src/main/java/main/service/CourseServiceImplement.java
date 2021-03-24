@@ -19,7 +19,7 @@ public class CourseServiceImplement implements CourseService {
 	}
 
 	@Override
-	public Course getById(String id) {	
+	public Course getById(int id) {	
 		return courseRepository.getOne(id);
 	}
 
@@ -29,7 +29,7 @@ public class CourseServiceImplement implements CourseService {
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(int id) {
 		courseRepository.deleteById(id);
 	}
 

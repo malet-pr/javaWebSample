@@ -1,42 +1,45 @@
 package main.model;
-
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "classes")
-public class Course {
-
+public class Course implements Serializable{
+	
 	@Id
-    @Column(name = "code")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	private String code;
-	private String subjectId;
-	private int room;
 	private String time;
 	private String day;
-	private boolean isFull;
+	@Column(name="max_capacity")
+	private int capacity;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Subject subject;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Professor professor;
+	
 
 	public Course() {}
 	
-	/**
-	 * @param code
-	 * @param subjectId
-	 * @param room
-	 * @param time
-	 * @param day
-	 * @param isFull
-	 */
-	public Course(String code, String subjectId, int room, String time, String day) {
-		this.code = code;
-		this.subjectId = subjectId;
-		this.room = room;
-		this.time = time;
-		this.day = day;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCode() {
@@ -45,22 +48,6 @@ public class Course {
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-
-	public String getSubjectId() {
-		return subjectId;
-	}
-
-	public void setSubjectId(String subjectId) {
-		this.subjectId = subjectId;
-	}
-
-	public int getRoom() {
-		return room;
-	}
-
-	public void setRoom(int room) {
-		this.room = room;
 	}
 
 	public String getTime() {
@@ -79,12 +66,36 @@ public class Course {
 		this.day = day;
 	}
 
-	public boolean isFull() {
-		return isFull;
+	public int getCapacity() {
+		return capacity;
 	}
 
-	public void setFull(boolean isFull) {
-		this.isFull = isFull;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+	
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+
+
+	private static final long serialVersionUID = 1L;
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

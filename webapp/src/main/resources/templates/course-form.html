@@ -17,19 +17,23 @@
 			
 			<div class="col-sm-8">
 				<h1>Add or edit course</h1>
+				<br>
 				
 				<form action="#" th:action="@{/processForm}" th:object="${course}" method="post">
 					<div class="form-group">
+						<input type="hidden" th:field="*{id}">
+					</div>	
+					<div class="form-group">
 						<label>Course Code</label>
 						<input type="text" class="form-control" th:field="*{code}">
-					</div>				
-					<div class="form-group">
-						<label>Subject Code</label>
-						<input type="text" class="form-control" th:field="*{subjectId}">
 					</div>
 					<div class="form-group">
-						<label>Room Number</label>
-						<input type="text" class="form-control" th:field="*{room}">
+						<label>Subject</label>
+						<input type="text" class="form-control" th:field="*{subject.name}">
+					</div>
+					<div class="form-group">
+						<label>Professor</label>
+						<input type="text" class="form-control" th:field="*{professor.lastName}">
 					</div>
 					<div class="form-group">
 						<label>Select Time Slot</label>
@@ -44,21 +48,25 @@
 							<option th:value="${course.day}" th:text="${course.day}"></option>
 							<option th:each="day : ${DAYS}" th:value="${day}" th:text="${day}"></option>
 						</select>			
-					</div>		
+					</div>
+					<div class="form-group">
+						<label>Maximum Capacity</label>
+						<input type="number" class="form-control" th:field="*{capacity}">
+					</div>	
 					<div class="form-row">
 						<div class="col">
 							<input class="btn btn-success" type="submit" value="Submit">
 						</div>
 						<div class="col">
-							<a th:href="@{/}" class="btn btn-warning float-right">Back</a>
+							<a th:href="@{/courses}" class="btn btn-warning float-right">Back</a>
 						</div>
 					</div>
 				</form>
+				
 			</div>
-			
 			<div class="col-sm">
 			</div>
-		</div>
+		</div>	
 	</div>
 </body>
 </html>
