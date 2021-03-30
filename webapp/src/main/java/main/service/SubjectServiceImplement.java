@@ -1,6 +1,9 @@
 package main.service;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,7 @@ import main.model.Subject;
 import main.repository.SubjectRepository;
 
 @Service
+@Transactional
 public class SubjectServiceImplement implements SubjectService {
 	
 	@Autowired
@@ -31,6 +35,11 @@ public class SubjectServiceImplement implements SubjectService {
 	@Override
 	public void delete(int id) {
 		subjectRepository.deleteById(id);
+	}
+
+	@Override
+	public Subject getByName(String name) {
+		return subjectRepository.getByName(name);
 	}
 
 }

@@ -26,7 +26,7 @@
 					<tr>
 						<th scope="col">id</th>
 						<th scope="col">Code</th>
-						<th scope="col">Subject</th>
+						<th scope="col">Subject</th> 
 						<th scope="col">Professor</th>
 						<th scope="col">Meeting Time</th>
 						<th scope="col">Meeting Days</th>
@@ -38,7 +38,7 @@
 						<td th:text="${course.id}"></td>		
 						<td th:text="${course.code}"></td>
 						<td th:text="${course.subject.name}"></td>
-						<td th:text="|${course.professor.lastName}, ${course.professor.firstName}|"></td>
+						<td th:text="${course.professor.fullName}"></td>
 						<td th:text="${course.time}"></td>
 						<td th:text="${course.day}"></td>
 						<td th:text="${course.capacity}"></td>

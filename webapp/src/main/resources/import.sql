@@ -13,11 +13,11 @@ insert into subjects (name,description) values ("PHYSICS-101", "description 4");
 insert into subjects (name,description) values ("COMP-SCIENCE-101", "description 5");
 
 /* POPULATE TABLE PROFESSORS*/
-insert into professors (first_name,last_name,national_id,employee_id) values ("John","Smith","1234","AA-123-B");
-insert into professors (first_name,last_name,national_id,employee_id) values ("Mark","Silver","3245","AB-234-J");
-insert into professors (first_name,last_name,national_id,employee_id) values ("Lucy","West","9467","DU-333-L");
-insert into professors (first_name,last_name,national_id,employee_id) values ("Sarah","Sommer","4532","CC-984-C");
-insert into professors (first_name,last_name,national_id,employee_id) values ("Peter","Grant","9864","EN-123-D");
+insert into professors (full_name,national_id,employee_id,is_active) values ("Smith, John","1234","AA-123-B",true);
+insert into professors (full_name,national_id,employee_id,is_active) values ("Silver, Mark","3245","AB-234-J",true);
+insert into professors (full_name,national_id,employee_id,is_active) values ("West, Lucy","9467","DU-333-L",true);
+insert into professors (full_name,national_id,employee_id,is_active) values ("Sommer, Sarah","4532","CC-984-C",true);
+insert into professors (full_name,national_id,employee_id,is_active) values ("Grant, Peter","9864","EN-123-D",true);
 
 /* POPULATE TABLE STUDENTS*/
 

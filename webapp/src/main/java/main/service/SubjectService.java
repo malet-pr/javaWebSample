@@ -9,7 +9,7 @@ public interface SubjectService{
  	public Subject getById(int id);
 	public void save(Subject subject);
 	public void delete(int id);
-
+	public Subject getByName(String name);
 }
 
 

@@ -31,16 +31,12 @@
 						<label>Subject</label>
 						<input type="text" class="form-control" th:field="*{subject.name}">
 					</div>
-					<div class="row">
-						<div class="col">
-							<label>Type professor´s ID</label>
-							<input type="text" class="form-control" th:field="*{professor.fullName}">
-						</div>
-						<div class="col">
-						<!-- 	<a th:href="@{/professors-names}" class="btn btn-secondary">Select from list</a> -->
-						</div>
-						
+                    <!--
+					<div class="form-group">
+						<label>Professor</label>
+						<input type="text" class="form-control" th:field="*{professor.lastName}">
 					</div>
+                    -->
 					<div class="form-group">
 						<label>Select Time Slot</label>
 						<select name="time" class="form-control">
@@ -59,6 +55,14 @@
 						<label>Maximum Capacity</label>
 						<input type="number" class="form-control" th:field="*{capacity}">
 					</div>	
+
+					<div class="form-group row">
+						<label for="search_professor" th:text="'Search professor by last name'"></label>
+						<div>
+							<input type="text" name="search_professor" id="search_professor" class="form-control" />
+						</div>
+					</div>
+
 					<div class="form-row">
 						<div class="col">
 							<input class="btn btn-success" type="submit" value="Submit">

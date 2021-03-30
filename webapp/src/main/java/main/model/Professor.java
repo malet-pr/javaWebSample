@@ -24,10 +24,10 @@ public class Professor  implements Serializable{
 	private String nationalID;
 	@Column(name="employee_id")
 	private String employeeID;
-	@Column(name="first_name")
-    private String firstName;
-    @Column(name="last_name")
-    private String lastName;
+    @Column(name="full_name")
+    private String fullName;
+    @Column(name="is_active")
+    private boolean isActive;
     
 	@OneToMany(mappedBy="professor", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Set<Course> courses;
@@ -40,15 +40,15 @@ public class Professor  implements Serializable{
 	 * @param id
 	 * @param nationalID
 	 * @param employeeID
-	 * @param firstName
-	 * @param lastName
+	 * @param fullName
+	 * @param isActive
 	 */
-	public Professor(int id, String nationalID, String employeeID, String firstName, String lastName) {
+	public Professor(int id, String nationalID, String employeeID, String fullName, boolean isActive) {
 		this.id = id;
 		this.nationalID = nationalID;
 		this.employeeID = employeeID;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fullName = fullName;
+		this.isActive = isActive;
 	}
 
 	public int getId() {
@@ -75,20 +75,20 @@ public class Professor  implements Serializable{
 		this.employeeID = employeeID;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public Set<Course> getCourses() {
@@ -98,7 +98,6 @@ public class Professor  implements Serializable{
 	public void setCourses(Set<Course> courses) {
 		this.courses = courses;
 	}
-
 
 	private static final long serialVersionUID = 1L;
 

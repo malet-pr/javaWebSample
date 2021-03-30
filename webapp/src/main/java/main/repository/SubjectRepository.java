@@ -10,4 +10,6 @@ import main.model.Subject;
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject,Integer> {
 
+	public Subject getByName(String name);
+	
 }

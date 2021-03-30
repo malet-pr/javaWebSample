@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 
 
 @Entity
@@ -24,10 +26,12 @@ public class Course implements Serializable{
 	@Column(name="max_capacity")
 	private int capacity;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	//@JoinColumn(name="subject_id", referencedColumnName = "id", insertable = false, updatable = false)  
 	private Subject subject;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	//@JoinColumn(name="professor_id", referencedColumnName = "id", insertable = false, updatable = false) 
 	private Professor professor;
 	
 
@@ -89,8 +93,6 @@ public class Course implements Serializable{
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
-
-
 
 	private static final long serialVersionUID = 1L;
 
