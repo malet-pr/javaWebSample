@@ -27,11 +27,11 @@ public class Course implements Serializable{
 	private int capacity;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	//@JoinColumn(name="subject_id", referencedColumnName = "id", insertable = false, updatable = false)  
+	@JoinColumn(name="subject_id", referencedColumnName = "id", insertable = false, updatable = false)  
 	private Subject subject;
 
 	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	//@JoinColumn(name="professor_id", referencedColumnName = "id", insertable = false, updatable = false) 
+	@JoinColumn(name="professor_id", referencedColumnName = "id", insertable = false, updatable = false) 
 	private Professor professor;
 	
 

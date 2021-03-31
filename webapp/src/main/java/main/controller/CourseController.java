@@ -42,18 +42,21 @@ public class CourseController {
 
         @GetMapping("/courses")
         public String getHomePage(Model model) {
+        	List<Professor> professors = professorService.getAll();
             List<Course> courses = courseService.getAll();
             model.addAttribute("courses", courses);
+            model.addAllAttributes(professors);
             return "courses";
         }
         
         @GetMapping("/addCourse")
         public String showForm(Model model) {
             Course course = new Course();
-            model.addAttribute("course",  course);
+            model.addAttribute("course", course);
+
             model.addAttribute("DAYS", DAYS);
             model.addAttribute("TIMES", TIMES);
-            return "course-form";
+            return "new-course";
         }
     			
 		@PostMapping("/processForm")
@@ -89,11 +92,22 @@ public class CourseController {
             return "redirect:/courses";
         }
 
-        /*
         @GetMapping(value = "/loadProfessor/{term}", produces = { "application/json" })
-        public @ResponseBody List<Professor> loadProfessors(@PathVariable String term) {
-            return professorService.findByLastNameLikeIgnoreCase(term);
+        public @ResponseBody List<Professor> loadProfessors(@RequestParam("term") String term) {
+            List<Professor> professors = professorService.findByFullNameLikeIgnoreCase(term);
+            return professors;
         }
-        */
+        
+        @GetMapping("/professorList")
+        @ResponseBody
+        public List<String> professorList(@RequestParam String term) {
+            List<Professor> professors = professorService.findByFullNameLikeIgnoreCase(term);
+            List<String> names = new ArrayList<>();
+            for(Professor prof : professors) {
+            	names.add(prof.getFullName());
+            }
+            return names;
+        }
+
 
 }

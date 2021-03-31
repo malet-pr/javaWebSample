@@ -18,7 +18,7 @@ public class ProfessorServiceImplement implements ProfessorService {
 
 	@Override
 	public List<Professor> getAll() {
-		return professorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
+		return professorRepository.findAll(Sort.by(Sort.Direction.ASC, "fullName"));
 	}
 
 	@Override
