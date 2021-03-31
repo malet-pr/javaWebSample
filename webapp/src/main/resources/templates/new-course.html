@@ -4,8 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Add Course</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -17,48 +21,59 @@
 				<h1>Add or edit course</h1>
 				<br>
 				
-				<form action="#" th:action="@{/new-course}" th:object="${course}" method="post">
-					<div class="form-group row">
+				<form action="#" th:action="@{/processForm}" th:object="${course}" method="post">
+					<div class="form-group">
 						<input type="hidden" th:field="*{id}">
 					</div>	
-					<div class="form-group row">
+					<div class="form-group">
 						<label>Course Code</label>
 						<input type="text" class="form-control" th:field="*{code}">
 					</div>
-					<div class="form-group row">
+					<div class="form-group">
 						<label>Subject</label>
 						<input type="text" class="form-control" th:field="*{subject.name}">
 					</div>
-                    <!--
-					<div class="form-group row">
-						<label>Professor</label>
-						<input type="text" class="form-control" th:field="*{professor.fullName}">
+					
+					<div th:if= "${course.professor != null}" class="form-group">
+					 	Current professor: <span th:text="${course.professor.fullName}">none selected</span>
 					</div>
-                    -->
-					<div class="form-group row">
+                    <script th:inline="javascript">
+					    //var real_data = /*[[${names}]]*/'noValue';
+					    $(document).ready(function() {
+					        $("#nameInput").autocomplete({
+					            minLength : 2,
+					            //source : real_data,
+					            source : "professorList",
+					            select : function(e, ui) {
+					                $("#professorChoice").val(ui.item.value);
+					                this.value = ui.item.value;
+					                return false;
+					            }
+					        })
+					    });
+					</script>
+					<div class="ui-widget">
+				        <label for="nameInput">Search for new professor: </label><input id="nameInput" />
+				    </div>	
+					<input type="hidden" th:field="*{professor.fullName}" id="professorChoice">
+					
+					<div class="form-group">
 						<label>Select Time Slot</label>
 						<select name="time" class="form-control">
 							<option th:value="${course.time}" th:text="${course.time}"></option>
 							<option th:each="time : ${TIMES}" th:value="${time}" th:text="${time}"></option>
 						</select>
 					</div>	
-    				<div class="form-group row">
+    				<div class="form-group">
     					<label>Select Days</label>
 						<select name="day" class="form-control">
 							<option th:value="${course.day}" th:text="${course.day}"></option>
 							<option th:each="day : ${DAYS}" th:value="${day}" th:text="${day}"></option>
 						</select>			
 					</div>
-					<div class="form-group row">
+					<div class="form-group">
 						<label>Maximum Capacity</label>
 						<input type="number" class="form-control" th:field="*{capacity}">
-					</div>	
-
-					<div class="form-group row">
-						<label for="search_professor" th:text="'Search professor by name'"></label>
-						<div>
-							<input type="text" name="search_professor" id="search_professor" class="form-control" />
-						</div>
 					</div>	
 
 					<div class="form-group row">
@@ -70,18 +85,8 @@
 						</div>
 					</div>
 				</form>
-				
-			</div>
-			<div class="col-sm">
-			</div>
-		</div>	
-	</div>
-	
-	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-	<script th:src="@{/js/popper.min.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<script th:src="@{/js/jquery-ui.min.js}"></script>
-	<script th:replace="autocomplete-professor :: js-professor"></script>
-	
+			</div>	
+		</div>
+	</div>	
 </body>
 </html>
