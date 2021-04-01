@@ -61,10 +61,24 @@ public class Course implements Serializable{
 	}
 	
 	public void setProfessorId() {
+		/*
+		if(professor_id > 0) {
+			this.professor_id=this.professor.getId();
+		} else {
+			this.professor_id=1;
+		}
+		*/
 		this.professor_id=this.professor.getId();
 	}
 	
 	public void setSubjectId() {
+		/*
+		if(professor_id > 0) {
+			this.subject_id=this.subject.getId();
+		} else {
+			this.subject_id=1;
+		}
+		*/
 		this.subject_id=this.subject.getId();
 	}
 

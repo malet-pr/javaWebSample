@@ -62,9 +62,19 @@ public class CourseController {
             return "new-course";
         }
    
-
+        // NOTA: se rompe si faltan profesor o materia. ARREGLARLO //
+        // tiene una solución temporal //
+        
 		@PostMapping("/processForm")
         public String processCourse(@ModelAttribute Course course, SessionStatus status) {	
+			// these ifs are necessary for the method not to break if autocomplete is empty
+			if(course.getProfessor().getId() == 0) {
+				course.getProfessor().setId(1);
+			}
+			if(course.getSubject().getId() == 0) {
+				course.getSubject().setId(1);
+			}
+			// end
 			course.setProfessorId();
 			course.setSubjectId();
 			courseService.save(course);
@@ -98,22 +108,6 @@ public class CourseController {
             return "redirect:/courses";
         }
 
-        /*
-        @GetMapping("/professorList")
-        @ResponseBody
-        public List<KeyValueProfessor> professorList(@RequestParam String term) {
-            List<Professor> professors = professorService.findByFullNameLikeIgnoreCase(term);
-            List<KeyValueProfessor> list = new ArrayList<>();
-            for(Professor prof : professors) {
-            	KeyValueProfessor kvp = new KeyValueProfessor();
-            	kvp.setValue(prof.getId());
-            	kvp.setLabel(prof.getFullName());
-            	list.add(kvp);
-            }
-            return list;
-        }
-        */
-        
         @GetMapping("/professorList")
         @ResponseBody
         public List<KeyValueProfessor> professorList(@RequestParam String term) {
