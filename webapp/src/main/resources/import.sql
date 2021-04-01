@@ -25,5 +25,6 @@ insert into professors (national_id,employee_id,is_active,first_name,last_name) 
 
 
 /* POPULATE TABLE STUDENTS*/
-
+insert into students (first_name,last_name) values ("Thomas","Black");
+insert into students (first_name,last_name) values ("Mara","Downing");
 

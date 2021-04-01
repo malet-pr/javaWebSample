@@ -6,14 +6,14 @@ package main.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,13 +37,14 @@ public class Student  implements Serializable{
     @Column(name="last_name")
     private String lastName;
     
-    /*
-	@OneToMany(mappedBy="subject", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany
+	@JoinTable(name="course_to_student",
+				joinColumns=@JoinColumn(name="student_id"),
+				inverseJoinColumns=@JoinColumn(name="course_id"))
 	private Set<Course> courses;
-	*/
     
     public Student() {
-    	
+    	this.courses = new HashSet<>();    	
     }
       
     /**
@@ -102,7 +103,13 @@ public class Student  implements Serializable{
 		this.lastName = lastName;
 	}
 
+	public Set<Course> getCourses() {
+		return courses;
+	}
 
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 
 
 	private static final long serialVersionUID = 1L;

@@ -1,21 +1,23 @@
 package main.service;
 
+import java.util.HashSet;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import main.model.Course;
+import main.model.Student;
 import main.repository.CourseRepository;
+import main.repository.StudentRepository;
 
 @Service
 public class CourseServiceImplement implements CourseService {
 	
 	@Autowired
 	private CourseRepository courseRepository;
+	@Autowired
+	private StudentRepository studentRepository;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -36,8 +38,23 @@ public class CourseServiceImplement implements CourseService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(int id) {
 		courseRepository.deleteById(id);		
+	}
+
+	@Override
+	@Transactional
+	public void addStudent(int id, int student_id) {
+		Course course = courseRepository.getOne(id);
+		if(course.getStudents() == null) {
+			course.setStudents(new HashSet());
+		}
+		Student student = studentRepository.getOne(student_id);
+		if(student != null) {
+			course.getStudents().add(student);
+			courseRepository.save(course);
+		}
 	}
 
 }

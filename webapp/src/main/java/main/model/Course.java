@@ -1,16 +1,17 @@
 package main.model;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 
 
 @Entity
@@ -26,23 +27,29 @@ public class Course implements Serializable{
 	@Column(name="max_capacity")
 	private int capacity;
 
-	@Embedded
 	@ManyToOne()
 	@JoinColumn(name="professor_id", referencedColumnName = "id", insertable = false, updatable = false) 
 	private Professor professor;
 	
 	private int professor_id;
 	
-	@Embedded
+	
 	@ManyToOne()
 	@JoinColumn(name="subject_id", referencedColumnName = "id", insertable = false, updatable = false)  
 	private Subject subject;
 	
 	private int subject_id;
+	
+	@ManyToMany
+	@JoinTable(name="course_to_student",
+				joinColumns=@JoinColumn(name="course_id"),
+				inverseJoinColumns=@JoinColumn(name="student_id"))
+	private Set<Student> students;
 
 	public Course() {
 		this.professor = new Professor();
 		this.subject = new Subject();
+		this.students = new HashSet();
 	}
 	
 	/**
@@ -61,24 +68,10 @@ public class Course implements Serializable{
 	}
 	
 	public void setProfessorId() {
-		/*
-		if(professor_id > 0) {
-			this.professor_id=this.professor.getId();
-		} else {
-			this.professor_id=1;
-		}
-		*/
 		this.professor_id=this.professor.getId();
 	}
 	
 	public void setSubjectId() {
-		/*
-		if(professor_id > 0) {
-			this.subject_id=this.subject.getId();
-		} else {
-			this.subject_id=1;
-		}
-		*/
 		this.subject_id=this.subject.getId();
 	}
 
@@ -137,6 +130,32 @@ public class Course implements Serializable{
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
+
+	public int getProfessor_id() {
+		return professor_id;
+	}
+
+	public void setProfessor_id(int professor_id) {
+		this.professor_id = professor_id;
+	}
+
+	public int getSubject_id() {
+		return subject_id;
+	}
+
+	public void setSubject_id(int subject_id) {
+		this.subject_id = subject_id;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
+
+
 
 	private static final long serialVersionUID = 1L;
 

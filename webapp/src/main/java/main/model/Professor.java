@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="professors")
-@Embeddable
 public class Professor  implements Serializable{
 
 	@Id

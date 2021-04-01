@@ -18,7 +18,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="subjects")
-@Embeddable
 public class Subject  implements Serializable{
 	
 	@Id

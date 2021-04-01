@@ -136,4 +136,11 @@ public class CourseController {
             }
             return list;
         }
+        
+        @GetMapping("/addStudent/{id}/{studentId}")
+        public String addStudent(@PathVariable int id, @PathVariable int studentId) {
+        	courseService.addStudent(id, studentId);
+        	return "redirect:/courses";
+        }      
+        
 }

@@ -31,6 +31,8 @@
 						<th scope="col">Meeting Time</th>
 						<th scope="col">Meeting Days</th>
 						<th scope="col">Max. Capacity</th>
+						<th scope="col">Actions</th>
+						<th scope="col">Sign In</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,13 +40,17 @@
 						<td th:text="${course.id}"></td>		
 						<td th:text="${course.code}"></td>
 						<td th:text="${course.subject?.name}"></td>
-						<td th:text="|${course.professor?.lastName}, ${course.professor?.firstName}|">TBA</td>
-						<td th:text="${course.time}">TBA</td>
-						<td th:text="${course.day}">TBA</td>
+						<td th:text="|${course.professor?.lastName}, ${course.professor?.firstName}|"></td>
+						<td th:text="${course.time}"></td>
+						<td th:text="${course.day}"></td>
 						<td th:text="${course.capacity}"></td>
 						<td>
 						    <a class="btn btn-warning btn-sm" th:if="${course.id} != null" th:href="@{/editCourse/} + ${course.id}">Edit</a>
 						    <a class="btn btn-danger btn-sm" th:if="${course.id} != null" th:href="@{/deleteCourse/} + ${course.id}">Del</a>
+						</td>
+						<td>
+							 <a class="btn btn-primary btn-sm" th:href="@{/addStudent/{id}/{studentId}(id=${course.id}, studentId=1)}">S1</a> 
+							 <a class="btn btn-primary btn-sm" th:href="@{/addStudent/{id}/{studentId}(id=${course.id}, studentId=2)}">S2</a> 
 						</td>
 					</tr>
 				</tbody>
