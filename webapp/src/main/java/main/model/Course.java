@@ -1,6 +1,7 @@
 package main.model;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.CascadeType;
 
 
@@ -25,18 +27,48 @@ public class Course implements Serializable{
 	private String day;
 	@Column(name="max_capacity")
 	private int capacity;
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="subject_id", referencedColumnName = "id", insertable = false, updatable = false)  
-	private Subject subject;
 
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@Embedded
+	@ManyToOne()
 	@JoinColumn(name="professor_id", referencedColumnName = "id", insertable = false, updatable = false) 
 	private Professor professor;
 	
-
-	public Course() {}
+	private int professor_id;
 	
+	@Embedded
+	@ManyToOne()
+	@JoinColumn(name="subject_id", referencedColumnName = "id", insertable = false, updatable = false)  
+	private Subject subject;
+	
+	private int subject_id;
+
+	public Course() {
+		this.professor = new Professor();
+		this.subject = new Subject();
+	}
+	
+	/**
+	 * @param id
+	 * @param code
+	 * @param time
+	 * @param day
+	 * @param capacity
+	 */
+	public Course(int id, String code, String time, String day, int capacity) {
+		this.id = id;
+		this.code = code;
+		this.time = time;
+		this.day = day;
+		this.capacity = capacity;
+	}
+	
+	public void setProfessorId() {
+		this.professor_id=this.professor.getId();
+	}
+	
+	public void setSubjectId() {
+		this.subject_id=this.subject.getId();
+	}
 
 	public int getId() {
 		return id;

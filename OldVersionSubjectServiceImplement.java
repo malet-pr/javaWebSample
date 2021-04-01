@@ -14,7 +14,7 @@ import main.repository.SubjectRepository;
 
 @Service
 @Transactional
-public class SubjectServiceImplement implements SubjectService {
+public class OldVersionSubjectServiceImplement implements SubjectService {
 	
 	@Autowired
 	private SubjectRepository subjectRepository;
@@ -32,26 +32,47 @@ public class SubjectServiceImplement implements SubjectService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Subject subject) {
-		subjectRepository.save(subject);
+		//subjectRepository.save(subject);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("all");
+		EntityManager em = emf.createEntityManager();
+		try {
+			  em.getTransaction().begin();
+			  em.persist(subject);
+			  em.getTransaction().commit();
+			} 
+			catch (Exception e) {
+			  e.printStackTrace();
+			} 
+			finally {
+			  em.close();
+			}
 	}
 
 	@Override
-	@Transactional
 	public void delete(int id) {
-		subjectRepository.deleteById(id);	
+		//subjectRepository.deleteById(id);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("all");
+		EntityManager em = emf.createEntityManager();
+		Subject s = subjectRepository.findById(null).orElse(null);
+	    try {
+	        em.getTransaction().begin();  
+	        Subject subject=em.merge(s);
+	        em.remove(subject);
+	        em.getTransaction().commit();
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        em.close();
+	    }	
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Subject getByName(String name) {
 		return subjectRepository.getByName(name);
-	}
-
-	@Override
-	public List<Subject> findByNameLikeIgnoreCase(String term) {
-		return subjectRepository.findByNameLikeIgnoreCase(term);
 	}
 
 }

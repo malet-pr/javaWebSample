@@ -12,7 +12,7 @@ import main.model.Course;
 import main.repository.CourseRepository;
 
 @Service
-public class CourseServiceImplement implements CourseService {
+public class OldVersionCourseServiceImplement implements CourseService {
 	
 	@Autowired
 	private CourseRepository courseRepository;
@@ -30,14 +30,41 @@ public class CourseServiceImplement implements CourseService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Course course) {
-		courseRepository.save(course);
+		// courseRepository.save(course);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("all");
+		EntityManager em = emf.createEntityManager();
+		try {
+		  em.getTransaction().begin();
+		  em.persist(course);
+		  em.getTransaction().commit();
+		} 
+		catch (Exception e) {
+		  e.printStackTrace();
+		} 
+		finally {
+		  em.close();
+		}
 	}
 
 	@Override
 	public void delete(int id) {
-		courseRepository.deleteById(id);		
+		//courseRepository.deleteById(id);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("all");
+		EntityManager em = emf.createEntityManager();
+		Course c = courseRepository.findById(null).orElse(null);
+	    try {
+	        em.getTransaction().begin();  
+	        Course course=em.merge(c);
+	        em.remove(course);
+	        em.getTransaction().commit();
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        em.close();
+	    }			
 	}
 
 }

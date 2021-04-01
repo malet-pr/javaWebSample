@@ -3,28 +3,30 @@ package main.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import main.model.Course;
+import main.model.KeyValueProfessor;
+import main.model.KeyValueSubject;
 import main.model.Professor;
+import main.model.Subject;
 import main.service.CourseService;
 import main.service.ProfessorService;
 import main.service.SubjectService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 
 @Controller
-@SessionAttributes("course")
 public class CourseController {
 
     @Autowired
@@ -33,6 +35,9 @@ public class CourseController {
 	private ProfessorService professorService;
     @Autowired
     private SubjectService subjectService;
+    
+    @PersistenceContext
+    EntityManager em;
 
     private List<String> DAYS = new ArrayList<>(
         Arrays.asList("Mon-Thu","Tue-Fri","Wed-Sat","Mon-Wed-Thu","Tue-Fri-Sat"));
@@ -41,29 +46,29 @@ public class CourseController {
         Arrays.asList("9-11 AM","11-1 AM/PM","1-3 PM","3-5 PM","5-7 PM"));
 
         @GetMapping("/courses")
-        public String getHomePage(Model model) {
-        	List<Professor> professors = professorService.getAll();
+        public String getCoursesList(Model model) {
             List<Course> courses = courseService.getAll();
             model.addAttribute("courses", courses);
-            model.addAllAttributes(professors);
             return "courses";
         }
         
         @GetMapping("/addCourse")
-        public String showForm(Model model) {
+        public String addCourseForm(Model model) {
             Course course = new Course();
             model.addAttribute("course", course);
-
             model.addAttribute("DAYS", DAYS);
             model.addAttribute("TIMES", TIMES);
             return "new-course";
         }
-    			
+   
+
 		@PostMapping("/processForm")
-        public String processCourse(@ModelAttribute Course course, SessionStatus status) {	
-            courseService.save(course);
-            status.setComplete();
+        public String processCourse(@ModelAttribute Course course) {	
+			course.setProfessorId();
+			course.setSubjectId();
+			courseService.save(course);
             return "redirect:/courses";
+            
 		}
                 
         @GetMapping("/deleteCourse/{id}")
@@ -92,22 +97,31 @@ public class CourseController {
             return "redirect:/courses";
         }
 
-        @GetMapping(value = "/loadProfessor/{term}", produces = { "application/json" })
-        public @ResponseBody List<Professor> loadProfessors(@RequestParam("term") String term) {
-            List<Professor> professors = professorService.findByFullNameLikeIgnoreCase(term);
-            return professors;
-        }
-        
         @GetMapping("/professorList")
         @ResponseBody
-        public List<String> professorList(@RequestParam String term) {
+        public List<KeyValueProfessor> professorList(@RequestParam String term) {
             List<Professor> professors = professorService.findByFullNameLikeIgnoreCase(term);
-            List<String> names = new ArrayList<>();
+            List<KeyValueProfessor> list = new ArrayList<>();
             for(Professor prof : professors) {
-            	names.add(prof.getFullName());
+            	KeyValueProfessor kvp = new KeyValueProfessor();
+            	kvp.setValue(prof.getId());
+            	kvp.setLabel(prof.getFullName());
+            	list.add(kvp);
             }
-            return names;
+            return list;
         }
 
-
+        @GetMapping("/subjectList")
+        @ResponseBody
+        public List<KeyValueSubject> subjectList(@RequestParam String term) {
+            List<Subject> subjects = subjectService.findByNameLikeIgnoreCase(term);
+            List<KeyValueSubject> list = new ArrayList<>();
+            for(Subject sub : subjects) {
+            	KeyValueSubject kvs = new KeyValueSubject();
+            	kvs.setValue(sub.getId());
+            	kvs.setLabel(sub.getName());
+            	list.add(kvs);
+            }
+            return list;
+        }
 }

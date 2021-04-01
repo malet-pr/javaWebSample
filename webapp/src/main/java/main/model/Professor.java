@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="professors")
+@Embeddable
 public class Professor  implements Serializable{
 
 	@Id
@@ -29,7 +32,8 @@ public class Professor  implements Serializable{
     @Column(name="is_active")
     private boolean isActive;
     
-	@OneToMany(mappedBy="professor", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @Embedded
+    @OneToMany(mappedBy="professor", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Set<Course> courses;
     
     public Professor() {

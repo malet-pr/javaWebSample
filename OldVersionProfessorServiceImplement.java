@@ -15,7 +15,7 @@ import main.model.Professor;
 import main.repository.ProfessorRepository;
 
 @Service
-public class ProfessorServiceImplement implements ProfessorService {
+public class OldVersionProfessorServiceImplement implements ProfessorService {
 	
 	@Autowired
 	private ProfessorRepository professorRepository;
@@ -33,15 +33,41 @@ public class ProfessorServiceImplement implements ProfessorService {
 	}
 
 	@Override
-	@Transactional
 	public void save(Professor professor) {
-		professorRepository.save(professor);
+		//professorRepository.save(professor);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("all");
+		EntityManager em = emf.createEntityManager();
+		try {
+			  em.getTransaction().begin();
+			  em.persist(professor);
+			  em.getTransaction().commit();
+			} 
+			catch (Exception e) {
+			  e.printStackTrace();
+			} 
+			finally {
+			  em.close();
+			}
 	}
 
 	@Override
-	@Transactional
 	public void delete(int id) {
-		professorRepository.deleteById(id);	
+		//professorRepository.deleteById(id);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("all");
+		EntityManager em = emf.createEntityManager();
+		Professor p = professorRepository.findById(null).orElse(null);
+	    try {
+	        em.getTransaction().begin();  
+	        Professor professor=em.merge(p);
+	        em.remove(professor);
+	        em.getTransaction().commit();
+	    } 
+	    catch (Exception e) {
+	        e.printStackTrace();
+	    } 
+	    finally {
+	        em.close();
+	    }	
 	}
 
 	@Override

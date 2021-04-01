@@ -10,6 +10,5 @@ public interface CourseService{
  	public Course getById(int id);
 	public void save(Course course);
 	public void delete(int id);
-	//public List<Professor> findByFullName(String term);
 	
 }

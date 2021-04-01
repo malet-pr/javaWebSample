@@ -10,6 +10,8 @@ public interface SubjectService{
 	public void save(Subject subject);
 	public void delete(int id);
 	public Subject getByName(String name);
+	public List<Subject> findByNameLikeIgnoreCase(String term);
+	
 }
 
 
