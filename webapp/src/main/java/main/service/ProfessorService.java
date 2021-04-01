@@ -9,8 +9,8 @@ public interface ProfessorService{
  	public Professor getById(int id);
 	public void save(Professor professor);
 	public void delete(int id);
-	public Professor findByFullName(String name);
-	public List<Professor> findByFullNameLikeIgnoreCase(String name);
+	public List<Professor> findByLastNameLikeIgnoreCase(String term);
+	public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term);
 
 }
 

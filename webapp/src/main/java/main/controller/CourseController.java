@@ -98,6 +98,7 @@ public class CourseController {
             return "redirect:/courses";
         }
 
+        /*
         @GetMapping("/professorList")
         @ResponseBody
         public List<KeyValueProfessor> professorList(@RequestParam String term) {
@@ -107,6 +108,22 @@ public class CourseController {
             	KeyValueProfessor kvp = new KeyValueProfessor();
             	kvp.setValue(prof.getId());
             	kvp.setLabel(prof.getFullName());
+            	list.add(kvp);
+            }
+            return list;
+        }
+        */
+        
+        @GetMapping("/professorList")
+        @ResponseBody
+        public List<KeyValueProfessor> professorList(@RequestParam String term) {
+            List<Professor> professors = professorService.findByLastNameLikeIgnoreCaseAndIsActive(term);
+            List<KeyValueProfessor> list = new ArrayList<>();
+            for(Professor prof : professors) {
+            	KeyValueProfessor kvp = new KeyValueProfessor();
+            	kvp.setValue(prof.getId());
+            	String fullName = prof.getLastName() + ", " + prof.getFirstName();
+            	kvp.setLabel(fullName);
             	list.add(kvp);
             }
             return list;

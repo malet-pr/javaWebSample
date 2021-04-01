@@ -10,10 +10,11 @@ import main.model.Professor;
 @PersistenceContext
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor,Integer> {
-
-    public Professor findByFullName(String term);
     
-    @Query("select p from Professor p where p.fullName like %?1%")  
-    public List<Professor> findByFullNameLikeIgnoreCase(String term);
+    @Query("select p from Professor p where p.lastName like %?1%")  
+    public List<Professor> findByLastNameLikeIgnoreCase(String term);
+    
+    @Query("select p from Professor p where p.lastName like %?1% and  p.isActive=true")  
+    public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term);
 
 }

@@ -45,15 +45,13 @@ public class ProfessorServiceImplement implements ProfessorService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Professor findByFullName(String lastName) {
-		return professorRepository.findByFullName(lastName);
+	public List<Professor> findByLastNameLikeIgnoreCase(String term) {
+		return professorRepository.findByLastNameLikeIgnoreCase(term);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public List<Professor> findByFullNameLikeIgnoreCase(String lastName) {
-		return professorRepository.findByFullNameLikeIgnoreCase(lastName);
+	public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term) {
+		return professorRepository.findByLastNameLikeIgnoreCaseAndIsActive(term);
 	}
 	
 }
