@@ -17,7 +17,7 @@
 			<div class="col-sm">
 			</div>
 			
-			<div class="col-sm-8">
+			<div class="col-sm-12">
 				<h1>Add or edit course</h1>
 				<br>
 				
@@ -25,14 +25,7 @@
 					<div class="form-group">
 						<input type="hidden" th:field="*{id}">
 					</div>	
-					<div class="form-group">
-						<label>Course Code</label>
-						<input type="text" class="form-control" th:field="*{code}">
-					</div>
-					
-					<div th:if= "*{subject != null}" class="form-group">
-					 	Current subject: <span th:text="*{subject.Name}"></span>
-					</div>
+	
                     <script th:inline="javascript">
 					    $(document).ready(function() {
 					        $("#nameSubject").autocomplete({
@@ -46,17 +39,7 @@
 					        })
 					    });
 					</script>
-					<div class="ui-widget">
-				        <label for="nameSubject">Search for new course: </label><input id="nameSubject" />
-				    </div>
-				    <div class="form-group">
-						<label>Selected subject</label>
-						<input type="text" class="form-control" th:field="*{subject.id}" th:name="subjectChoice" id="subjectChoice">
-					</div>	
 										
-					<div th:if= "*{professor != null}" class="form-group">
-					 	Current professor: <span th:text="*{professor.fullName}"></span>
-					</div>
                     <script th:inline="javascript">
 					    $(document).ready(function() {
 					        $("#nameProfessor").autocomplete({
@@ -70,32 +53,50 @@
 					        })
 					    });
 					</script>
-					<div class="ui-widget">
-				        <label for="nameProfessor">Search for new professor: </label><input id="nameProfessor" />
-				    </div>
-				    <div class="form-group">
-						<label>Selected professor</label>
-						<input type="text" class="form-control" th:field="*{professor.id}" th:name="professorChoice" id="professorChoice">
-					</div>	
 					
-					<div class="form-group">
-						<label>Select Time Slot</label>
-						<select name="time" class="form-control">
-							<option th:value="${course.time}" th:text="${course.time}"></option>
-							<option th:each="time : ${TIMES}" th:value="${time}" th:text="${time}"></option>
-						</select>
-					</div>	
-    				<div class="form-group">
-    					<label>Select Days</label>
-						<select name="day" class="form-control">
-							<option th:value="${course.day}" th:text="${course.day}"></option>
-							<option th:each="day : ${DAYS}" th:value="${day}" th:text="${day}"></option>
-						</select>			
+					<div class="form-group row">
+						<div class="col">
+							<div class="ui-widget">
+						        <label for="nameSubject">Search subject: </label><input id="nameSubject" />
+						    </div>
+					    </div>
+						<div class="col">
+							<div class="ui-widget">
+						        <label for="nameProfessor">Search professor: </label><input id="nameProfessor" />
+						    </div>
+						 </div>   
+				    </div>
+				    
+				    <input type="hidden" class="form-control" th:field="*{subject.id}" th:name="subjectChoice" id="subjectChoice">
+					<input type="hidden" class="form-control" th:field="*{professor.id}" th:name="professorChoice" id="professorChoice">
+					
+					<div class="form-group row">
+						<div class="col">
+							<label>Select Time Slot</label>
+							<select name="time" class="form-control">
+								<option th:value="${course.time}" th:text="${course.time}"></option>
+								<option th:each="time : ${TIMES}" th:value="${time}" th:text="${time}"></option>
+							</select>
+						</div>	
+	    				<div class="col">
+	    					<label>Select Days</label>
+							<select name="day" class="form-control">
+								<option th:value="${course.day}" th:text="${course.day}"></option>
+								<option th:each="day : ${DAYS}" th:value="${day}" th:text="${day}"></option>
+							</select>			
+						</div>
 					</div>
-					<div class="form-group">
-						<label>Maximum Capacity</label>
-						<input type="number" class="form-control" th:field="*{capacity}">
-					</div>	
+					
+					<div class="form-group row">
+						<div class="col">
+							<label>Course Code</label>
+							<input type="text" class="form-control" th:field="*{code}">
+						</div>
+						<div class="col">
+							<label>Maximum Capacity</label>
+							<input type="number" class="form-control" th:field="*{capacity}">
+						</div>	
+					</div>
 
 					<div class="form-group row">
 						<div class="col">

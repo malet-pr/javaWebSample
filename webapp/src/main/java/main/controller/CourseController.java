@@ -27,6 +27,7 @@ import javax.persistence.PersistenceContext;
 
 
 @Controller
+@SessionAttributes("course")
 public class CourseController {
 
     @Autowired
@@ -63,16 +64,16 @@ public class CourseController {
    
 
 		@PostMapping("/processForm")
-        public String processCourse(@ModelAttribute Course course) {	
+        public String processCourse(@ModelAttribute Course course, SessionStatus status) {	
 			course.setProfessorId();
 			course.setSubjectId();
 			courseService.save(course);
-            return "redirect:/courses";
-            
+			status.isComplete();
+            return "redirect:/courses";   
 		}
                 
         @GetMapping("/deleteCourse/{id}")
-        public String deleteOffer(@PathVariable int id) {
+        public String deleteCourse(@PathVariable int id) {
             if (id >= 0) {
                 Course course = courseService.getById(id);
                 if(course != null) {
@@ -91,7 +92,7 @@ public class CourseController {
                     model.addAttribute("course", course);
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
-                    return "course-form";
+                    return "new-course";
                 }
             }
             return "redirect:/courses";
