@@ -21,7 +21,7 @@
 				<h1>Add or edit course</h1>
 				<br>
 				
-				<form action="#" th:action="@{/processForm}" th:object="${course}" method="post">
+				<form action="#" th:action="@{/admin-courses/processForm}" th:object="${course}" method="post">
 					<div class="form-group">
 						<input type="hidden" th:field="*{id}">
 					</div>	

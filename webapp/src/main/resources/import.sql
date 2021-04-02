@@ -28,3 +28,14 @@ insert into professors (national_id,employee_id,is_active,first_name,last_name) 
 insert into students (first_name,last_name) values ("Thomas","Black");
 insert into students (first_name,last_name) values ("Mara","Downing");
 
+/* POPULATE TABLE USERS */
+insert into users (username,password,enabled) values ("admin","admin","1");
+insert into users (username,password,enabled) values ("student1","st1","1");
+insert into users (username,password,enabled) values ("student2","st2","1");
+insert into users (username,password,enabled) values ("student3","st3","1");
+
+/* POPULATE TABLE AUTHORITIES */
+insert into authorities (user_id,authorities) values ("1","ROLE_ADMIN");
+insert into authorities (user_id,authorities) values ("2","ROLE_STUDENT");
+insert into authorities (user_id,authorities) values ("3","ROLE_STUDENT");
+insert into authorities (user_id,authorities) values ("4","ROLE_STUDENT");

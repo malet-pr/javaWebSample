@@ -45,6 +45,11 @@ public class CourseController {
 
     private List<String> TIMES = new ArrayList<>(
         Arrays.asList("9-11 AM","11-1 AM/PM","1-3 PM","3-5 PM","5-7 PM"));
+    
+    	@GetMapping({"/","/home"})
+    	public String getHomePage() {
+    		return "home";
+    	}
 
         @GetMapping("/courses")
         public String getCoursesList(Model model) {
@@ -53,20 +58,21 @@ public class CourseController {
             return "courses";
         }
         
-        @GetMapping("/addCourse")
+        @GetMapping("/admin-courses/addCourse")
         public String addCourseForm(Model model) {
             Course course = new Course();
             model.addAttribute("course", course);
             model.addAttribute("DAYS", DAYS);
             model.addAttribute("TIMES", TIMES);
-            return "new-course";
+            return "/admin-courses/new-course";
         }
    
         // NOTA: se rompe si faltan profesor o materia. ARREGLARLO //
         // tiene una solución temporal //
         
-		@PostMapping("/processForm")
+		@PostMapping("/admin-courses/processForm")
         public String processCourse(@ModelAttribute Course course, SessionStatus status) {	
+			
 			// these ifs are necessary for the method not to break if autocomplete is empty
 			if(course.getProfessor().getId() == 0) {
 				course.getProfessor().setId(1);
@@ -74,7 +80,8 @@ public class CourseController {
 			if(course.getSubject().getId() == 0) {
 				course.getSubject().setId(1);
 			}
-			// end
+			// end of issues
+			
 			course.setProfessorId();
 			course.setSubjectId();
 			courseService.save(course);
@@ -82,7 +89,7 @@ public class CourseController {
             return "redirect:/courses";   
 		}
                 
-        @GetMapping("/deleteCourse/{id}")
+        @GetMapping("/admin-courses/deleteCourse/{id}")
         public String deleteCourse(@PathVariable int id) {
             if (id >= 0) {
                 Course course = courseService.getById(id);
@@ -93,7 +100,7 @@ public class CourseController {
             return "redirect:/courses";
         }
         
-        @GetMapping("/editCourse/{id}")
+        @GetMapping("/admin-courses/editCourse/{id}")
         public String editCourseString(@PathVariable int id, Model model) {
             Course course = null;
             if(id >= 0) {
@@ -102,7 +109,7 @@ public class CourseController {
                     model.addAttribute("course", course);
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
-                    return "new-course";
+                    return "/admin-courses/new-course";
                 }
             }
             return "redirect:/courses";
