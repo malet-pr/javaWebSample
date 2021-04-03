@@ -5,10 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import main.service.UserDetailsServiceImplement;
 
 @Configuration
@@ -27,8 +24,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/edit-courses").hasAnyRole("ADMIN")
 			.antMatchers("/professors").hasAnyRole("ADMIN")
 			.antMatchers("/subjects").hasAnyRole("ADMIN")
-			.antMatchers("/subjectList").hasAnyRole("ADMIN")
-			.antMatchers("/professorList").hasAnyRole("ADMIN")
+			.antMatchers("/select-professor").hasAnyRole("ADMIN")
+			.antMatchers("/select-subject").hasAnyRole("ADMIN")
 			.antMatchers("/courses").hasAnyRole("ADMIN","STUDENT")
 			.anyRequest().authenticated()
 			.and()

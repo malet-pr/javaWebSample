@@ -47,7 +47,8 @@
 						<td>
 						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-warning btn-sm" th:if="${course.id} != null" th:href="@{/editCourse/} + ${course.id}">Edit</a>
 						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger btn-sm" th:if="${course.id} != null" th:href="@{/deleteCourse/} + ${course.id}">Delete</a>
-							<a sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-primary btn-sm" th:href="@{/addStudent/{id} (id=${course.id})}">SignIn</a> 
+							<a sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-primary btn-sm" th:href="@{/viewSubject/{id} (id=${course.subject.id})}">View</a> 
+							<a sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-success btn-sm" th:href="@{/addStudent/{id} (id=${course.id})}">SignIn</a> 
 						</td>
 					</tr>
 				</tbody>

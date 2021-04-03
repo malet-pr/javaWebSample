@@ -72,7 +72,7 @@ public class CourseController {
         // tiene una solución temporal //
         
 		@PostMapping("/processForm")
-        public String processCourse(@ModelAttribute Course course, SessionStatus status) {	
+        public String addCourse(@ModelAttribute Course course, SessionStatus status) {	
 			
 			// these ifs are necessary for the method not to break if autocomplete is empty
 			if(course.getProfessor().getId() == 0) {
@@ -107,30 +107,41 @@ public class CourseController {
             if(id >= 0) {
                 course = courseService.getById(id);
                 if(course != null) {
-                	/*
                 	String profName = course.getProfessor().getLastName() +", "+course.getProfessor().getFirstName();
                 	String subjName = course.getSubject().getName();
-                    int profId = course.getProfessor_id();
-                    if(profId==0) {
-                    	profId = 1;
-                    }	
-                    int subjId = course.getSubject_id();
-                    if(subjId == 0) {
-                    	subjId = 1;
-                    } 
-                    */
-                    course.setProfessor(new Professor());
-                    course.setSubject(new Subject());
-                    model.addAttribute("course", course);
+                	List<String> oldValues = new ArrayList<>(Arrays.asList("Current subject: " + subjName,"Current professor: " + profName));
+                	
+                    Professor oldProfessor = course.getProfessor();
+                    Subject oldSubject = course.getSubject();
+                    
+                	model.addAttribute("course", course);
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
-                    //model.addAttribute("profName",profName);
-                    //model.addAttribute("subjName", subjName);
+                    model.addAttribute("oldValues", oldValues);
                     return "/edit-course";
                 }
             }
             return "redirect:/courses";
         }
+        
+		@PostMapping("/processForm2")
+        public String editCourse(@ModelAttribute Course course, SessionStatus status) {	
+			
+			// these ifs are necessary for the method not to break if autocomplete is empty
+			if(course.getProfessor().getId() == 0) {
+				course.getProfessor().setId(1);
+			}
+			if(course.getSubject().getId() == 0) {
+				course.getSubject().setId(1);
+			}
+			// end of issues
+			
+			course.setProfessorId();
+			course.setSubjectId();
+			courseService.save(course);
+			status.isComplete();
+            return "redirect:/courses";   
+		}
 
         @GetMapping("/professorList")
         @ResponseBody
@@ -165,6 +176,13 @@ public class CourseController {
         public String addStudent(@PathVariable int id, Authentication authentication) {
         	courseService.addStudent(id, authentication.getName());
         	return "redirect:/courses";
-        }      
+        }  
+        
+        @GetMapping("/viewSubject/{id}")
+        public String viewCourse(@PathVariable int id, Model model) {
+        	Subject subject = subjectService.getById(id);
+        	model.addAttribute("subject", subject);
+        	return "/subjectView";
+        }
         
 }
