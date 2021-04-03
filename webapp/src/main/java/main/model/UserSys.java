@@ -25,7 +25,7 @@ public class UserSys implements Serializable {
 	private int id;
 	@Column(length=30,unique=true)
 	private String username;
-	@Column(length=68)
+	@Column(length=100)
 	private String password;
 	private boolean enabled;
 	

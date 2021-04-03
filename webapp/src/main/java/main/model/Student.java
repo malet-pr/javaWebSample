@@ -6,6 +6,8 @@ package main.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,7 +39,7 @@ public class Student  implements Serializable{
     private String firstName;
     @Column(name="last_name")
     private String lastName;
-    
+     
 	@ManyToMany
 	@JoinTable(name="course_to_student",
 				joinColumns=@JoinColumn(name="student_id"),

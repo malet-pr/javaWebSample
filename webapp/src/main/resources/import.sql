@@ -15,27 +15,27 @@ insert into subjects (name,description) values ("COMP-SCIENCE-101", "description
 
 /* POPULATE TABLE PROFESSORS*/
 insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("-","-",true,"","TBA");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("1234","AA-123-B",true,"John","Smith");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("3245","AB-234-J",true,"Mark","Silverman");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("9467","DU-333-L",true,"Lucile","West");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("4532","CC-984-C",true,"Sarah","Sommers");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("9864","EN-123-D",true,"Peter","Grant");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("9332","LD-984-N",false,"Lara","Brown");
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("9234","VY-123-U",false,"Mathew","White");
-
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("12349","AA-123",true,"John","Smith");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("32459","AB-234",true,"Mark","Silverman");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("94679","DU-333",true,"Lucile","West");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("45329","CC-984",true,"Sarah","Sommers");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("98649","EN-123",true,"Peter","Grant");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("93329","LD-984",false,"Lara","Brown");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("92349","VY-123",false,"Mathew","White");
 
 /* POPULATE TABLE STUDENTS*/
-insert into students (first_name,last_name) values ("Thomas","Black");
-insert into students (first_name,last_name) values ("Mara","Downing");
+insert into students (first_name,last_name,national_id,student_id) values ("Thomas","Black","123456","st-22");
+insert into students (first_name,last_name,national_id,student_id) values ("Mara","Downing","234567","st-15");
+insert into students (first_name,last_name,national_id,student_id) values ("Laura","Clearwater","345678","st-17");
 
 /* POPULATE TABLE USERS */
-insert into users (username,password,enabled) values ("admin","admin","1");
-insert into users (username,password,enabled) values ("student1","st1","1");
-insert into users (username,password,enabled) values ("student2","st2","1");
-insert into users (username,password,enabled) values ("student3","st3","1");
+insert into users (username,password,enabled) values ("admin","$2a$10$BTRIg0JYuttP3pe1B.2g9OdTq4jGA1CUsEjoUY4Ij73HllHgkRKOG",true);
+insert into users (username,password,enabled) values ("123456","$2a$10$9u/NLLCOfG6uGHTG/AwhuumNzk3V3EHAouJGe2JG/w7VemXRPbF.u",true);
+insert into users (username,password,enabled) values ("234567","$2a$10$pq1lUL.GsMEij3dlgCdBKO0MQA/oUk58f1IJ7f10TJ9QrK2Fg4G9W",true);
+insert into users (username,password,enabled) values ("345678","$2a$10$z253b1fwx2HTWDCe.3O9s.qtHJDF/UntiyE3COFmabtggSsuqNE5a",true);
 
 /* POPULATE TABLE AUTHORITIES */
-insert into authorities (user_id,authorities) values ("1","ROLE_ADMIN");
-insert into authorities (user_id,authorities) values ("2","ROLE_STUDENT");
-insert into authorities (user_id,authorities) values ("3","ROLE_STUDENT");
-insert into authorities (user_id,authorities) values ("4","ROLE_STUDENT");
+insert into authorities (user_id,authority) values ("1","ROLE_ADMIN");
+insert into authorities (user_id,authority) values ("2","ROLE_STUDENT");
+insert into authorities (user_id,authority) values ("3","ROLE_STUDENT");
+insert into authorities (user_id,authority) values ("4","ROLE_STUDENT");
