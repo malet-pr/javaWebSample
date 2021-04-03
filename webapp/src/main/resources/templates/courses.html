@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Courses page</title>
@@ -13,15 +14,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>LIST OF CLASSES</h1>
+				<h2>LIST OF CLASSES</h2>
 			</div>
 			<div class="col">
-				<a th:href="@{/admin-courses/addCourse}" class="btn btn-primary btn-lg">Add New Class</a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin-courses/addCourse}" class="btn btn-primary btn-lg">Add New Class</a>
 			</div>
 		</div>
 		
 		<div class="row">
-			<table class="table table-hover" th:if="${!courses.empty}">
+			<table class="table table-hover" th:if="${!courses.empty}">	
 				<thead>
 					<tr>
 						<th scope="col">id</th>
@@ -32,12 +33,11 @@
 						<th scope="col">Meeting Days</th>
 						<th scope="col">Max. Capacity</th>
 						<th scope="col">Actions</th>
-						<th scope="col">Sign In</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="course : ${courses}">	
-						<td th:text="${course.id}"></td>		
+						<td th:text="${course.id}"></td>	
 						<td th:text="${course.code}"></td>
 						<td th:text="${course.subject?.name}"></td>
 						<td th:text="|${course.professor?.lastName}, ${course.professor?.firstName}|"></td>
@@ -45,12 +45,9 @@
 						<td th:text="${course.day}"></td>
 						<td th:text="${course.capacity}"></td>
 						<td>
-						    <a class="btn btn-warning btn-sm" th:if="${course.id} != null" th:href="@{/admin-courses/editCourse/} + ${course.id}">Edit</a>
-						    <a class="btn btn-danger btn-sm" th:if="${course.id} != null" th:href="@{/admin-courses/deleteCourse/} + ${course.id}">Del</a>
-						</td>
-						<td>
-							 <a class="btn btn-primary btn-sm" th:href="@{/addStudent/{id}/{studentId}(id=${course.id}, studentId=1)}">S1</a> 
-							 <a class="btn btn-primary btn-sm" th:href="@{/addStudent/{id}/{studentId}(id=${course.id}, studentId=2)}">S2</a> 
+						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-warning btn-sm" th:if="${course.id} != null" th:href="@{/admin-courses/editCourse/} + ${course.id}">Edit</a>
+						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger btn-sm" th:if="${course.id} != null" th:href="@{/admin-courses/deleteCourse/} + ${course.id}">Delete</a>
+							<a sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-primary btn-sm" th:href="@{/addStudent/{id} (id=${course.id})}">SignIn</a> 
 						</td>
 					</tr>
 				</tbody>

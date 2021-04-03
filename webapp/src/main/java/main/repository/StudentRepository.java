@@ -10,6 +10,8 @@ import main.model.Student;
 @PersistenceContext
 @Repository
 public interface StudentRepository extends JpaRepository<Student,Integer> {
+	
+	public Student getByNationalID(String term);
 
 	public Student getByLastName(String term);
     

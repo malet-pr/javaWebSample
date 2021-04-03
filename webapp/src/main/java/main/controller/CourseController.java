@@ -1,6 +1,7 @@
 package main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -145,9 +146,9 @@ public class CourseController {
             return list;
         }
         
-        @GetMapping("/addStudent/{id}/{studentId}")
-        public String addStudent(@PathVariable int id, @PathVariable int studentId) {
-        	courseService.addStudent(id, studentId);
+        @GetMapping("/addStudent/{id}")
+        public String addStudent(@PathVariable int id, Authentication authentication) {
+        	courseService.addStudent(id, authentication.getName());
         	return "redirect:/courses";
         }      
         

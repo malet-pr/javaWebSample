@@ -50,4 +50,9 @@ public class StudentServiceImplement implements StudentService {
 		return studentRepository.findByLastNameLikeIgnoreCase(term);
 	}
 
+	@Override
+	public Student getByNationalID(String term) {
+		return studentRepository.getByNationalID(term);
+	}
+
 }

@@ -9,6 +9,6 @@ public interface CourseService{
  	public Course getById(int id);
 	public void save(Course course);
 	public void delete(int id);
-	public void addStudent(int course_id, int student_id);
+	public void addStudent(int course_id, String username);
 	
 }

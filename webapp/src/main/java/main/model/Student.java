@@ -6,8 +6,6 @@ package main.model;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,9 +28,9 @@ public class Student  implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-	@Column(name="national_id")
+	@Column(name="national_id", unique=true)
 	private String nationalID;
-	@Column(name="student_id")
+	@Column(name="student_id", unique=true)
 	private String studentID;
 	@Column(name="first_name")
     private String firstName;

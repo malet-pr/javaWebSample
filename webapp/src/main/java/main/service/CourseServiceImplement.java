@@ -45,12 +45,12 @@ public class CourseServiceImplement implements CourseService {
 
 	@Override
 	@Transactional
-	public void addStudent(int id, int student_id) {
+	public void addStudent(int id, String username) {
 		Course course = courseRepository.getOne(id);
 		if(course.getStudents() == null) {
 			course.setStudents(new HashSet());
 		}
-		Student student = studentRepository.getOne(student_id);
+		Student student = studentRepository.getByNationalID(username);
 		if(student != null) {
 			course.getStudents().add(student);
 			courseRepository.save(course);

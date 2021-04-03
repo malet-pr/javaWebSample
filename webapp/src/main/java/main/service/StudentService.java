@@ -11,6 +11,7 @@ public interface StudentService{
 	public void delete(int id);
 	public Student getByLastName(String name);
 	public List<Student> findByLastNameLikeIgnoreCase(String term);
+	public Student getByNationalID(String term);
 	
 }
 
