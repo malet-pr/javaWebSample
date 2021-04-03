@@ -2,7 +2,6 @@ package main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,19 +59,19 @@ public class CourseController {
             return "courses";
         }
         
-        @GetMapping("/admin-courses/addCourse")
+        @GetMapping("/addCourse")
         public String addCourseForm(Model model) {
             Course course = new Course();
             model.addAttribute("course", course);
             model.addAttribute("DAYS", DAYS);
             model.addAttribute("TIMES", TIMES);
-            return "/admin-courses/new-course";
+            return "/new-course";
         }
    
         // NOTA: se rompe si faltan profesor o materia. ARREGLARLO //
         // tiene una solución temporal //
         
-		@PostMapping("/admin-courses/processForm")
+		@PostMapping("/processForm")
         public String processCourse(@ModelAttribute Course course, SessionStatus status) {	
 			
 			// these ifs are necessary for the method not to break if autocomplete is empty
@@ -91,7 +90,7 @@ public class CourseController {
             return "redirect:/courses";   
 		}
                 
-        @GetMapping("/admin-courses/deleteCourse/{id}")
+        @GetMapping("/deleteCourse/{id}")
         public String deleteCourse(@PathVariable int id) {
             if (id >= 0) {
                 Course course = courseService.getById(id);
@@ -102,16 +101,32 @@ public class CourseController {
             return "redirect:/courses";
         }
         
-        @GetMapping("/admin-courses/editCourse/{id}")
+        @GetMapping("/editCourse/{id}")
         public String editCourseString(@PathVariable int id, Model model) {
             Course course = null;
             if(id >= 0) {
                 course = courseService.getById(id);
                 if(course != null) {
+                	/*
+                	String profName = course.getProfessor().getLastName() +", "+course.getProfessor().getFirstName();
+                	String subjName = course.getSubject().getName();
+                    int profId = course.getProfessor_id();
+                    if(profId==0) {
+                    	profId = 1;
+                    }	
+                    int subjId = course.getSubject_id();
+                    if(subjId == 0) {
+                    	subjId = 1;
+                    } 
+                    */
+                    course.setProfessor(new Professor());
+                    course.setSubject(new Subject());
                     model.addAttribute("course", course);
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
-                    return "/admin-courses/new-course";
+                    //model.addAttribute("profName",profName);
+                    //model.addAttribute("subjName", subjName);
+                    return "/edit-course";
                 }
             }
             return "redirect:/courses";

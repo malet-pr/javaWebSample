@@ -17,7 +17,7 @@
 				<h2>LIST OF CLASSES</h2>
 			</div>
 			<div class="col">
-				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin-courses/addCourse}" class="btn btn-primary btn-lg">Add New Class</a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/addCourse}" class="btn btn-primary btn-lg">Add New Class</a>
 			</div>
 		</div>
 		
@@ -45,8 +45,8 @@
 						<td th:text="${course.day}"></td>
 						<td th:text="${course.capacity}"></td>
 						<td>
-						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-warning btn-sm" th:if="${course.id} != null" th:href="@{/admin-courses/editCourse/} + ${course.id}">Edit</a>
-						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger btn-sm" th:if="${course.id} != null" th:href="@{/admin-courses/deleteCourse/} + ${course.id}">Delete</a>
+						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-warning btn-sm" th:if="${course.id} != null" th:href="@{/editCourse/} + ${course.id}">Edit</a>
+						    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger btn-sm" th:if="${course.id} != null" th:href="@{/deleteCourse/} + ${course.id}">Delete</a>
 							<a sec:authorize="hasRole('ROLE_STUDENT')" class="btn btn-primary btn-sm" th:href="@{/addStudent/{id} (id=${course.id})}">SignIn</a> 
 						</td>
 					</tr>
