@@ -10,6 +10,51 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>UNDER CONSTRUCTION</h1>
+
+	<div class="container">
+		<div class="col-sm-12">
+			<h2>Add or edit professor</h2>
+			<br><br>
+			
+			<form action="#" th:action="@{/processFormProfessor}" th:object="${professor}" method="post">
+				<div class="form-group">
+					<input type="hidden" th:field="*{id}">
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<label style="padding-right:10px">Is Active </label> 
+						<input type="checkbox" th:field="*{isActive}" value="true"> 
+					</div>	
+					<div class="row">
+						<label>National ID</label>
+						<input type="text" class="form-control" th:field="*{nationalID}">
+					</div>
+					<div class="row">
+						<label>Employee ID</label>
+						<input type="text" class="form-control" th:field="*{employeeID}">
+					</div>	
+					<div class="row">
+						<label>First Name</label>
+						<input type="text" class="form-control" th:field="*{firstName}">
+					</div>
+					<div class="row">
+						<label>Last Name</label>
+						<input type="text" class="form-control" th:field="*{lastName}">
+					</div>											
+				</div>
+				<div class="row">
+					<div class="col">
+						<input class="btn btn-success" type="submit" value="Submit">
+					</div>
+					<div class="col">
+						<a th:href="@{/coursesAdmin}" class="btn btn-warning float-right">Back</a>
+					</div>
+				</div>
+			</form>
+		</div>	
+	</div>
+					
+					
+						
 </body>
 </html>

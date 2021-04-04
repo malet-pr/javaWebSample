@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -82,11 +81,11 @@ public class Professor  implements Serializable{
 		this.employeeID = employeeID;
 	}
 
-	public boolean isActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
 
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
@@ -114,12 +113,6 @@ public class Professor  implements Serializable{
 		this.lastName = lastName;
 	}
 
-
-
 	private static final long serialVersionUID = 1L;
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
     
 }
