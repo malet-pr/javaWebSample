@@ -89,6 +89,7 @@
 					
 					<div class="form-group row">
 						<div class="col">
+							<div style="color:red" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div>
 							<label>Course Code</label>
 							<input type="text" class="form-control" th:field="*{code}">
 						</div>

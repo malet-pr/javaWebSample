@@ -23,5 +23,8 @@ public interface ProfessorRepository extends JpaRepository<Professor,Integer> {
     
     @Query("select p from Professor p where p.lastName like %?1% and  p.isActive=true")  
     public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term);
+    
+    @Query("select p from Professor p where p.isActive=true")  
+    public List<Professor> getAllActive();
 
 }

@@ -13,6 +13,7 @@ public interface ProfessorService{
 	public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term);
 	public List<Professor> findByLastNameWithoutTBA();
 	public List<Professor> findByLastNameWithoutTBAAndIsActive();
+	public List<Professor> getAllActive();
 
 }
 

@@ -18,7 +18,7 @@
 			</div>
 			
 			<div class="col-sm-12">
-				<h2>Add or edit course</h2>
+				<h2>Edit course</h2>
 				<br>
 				
 				<form action="#" th:action="@{/processForm2}" th:object="${course}" method="post">
@@ -28,18 +28,21 @@
 					
 					<div class="form-group row">
 						<div class="col">
-							<span th:text="${oldValues[0]}"></span>
-							<a th:href="@{/select-subject}" class="btn btn-secondary">Change</a>
-						</div>
+							<label>Select Subject</label>
+							<select name="subject" class="form-control">
+								<option th:each="subject : ${subjects}" th:value="${subject.value}" th:text="${subject.label}"></option>
+								<option th:value="${currSubj}" th:text="${currSubjName}" selected></option>								
+							</select>
+						</div>		
 						<div class="col">
-							<span th:text="${oldValues[1]}"></span>
-							<a th:href="@{/select-professor}" class="btn btn-secondary">Change</a>
-						</div>
-					</div>
-				    
-				    <input type="text" class="form-control" th:field="*{professor_id}" th:name="subjectChoice" id="subjectChoice" >
-					<input type="text" class="form-control" th:field="*{subject_id}" th:name="professorChoice" id="professorChoice">
-
+							<label>Select Professor</label>
+							<select name="professor" class="form-control">
+								<option th:each="professor : ${professors}" th:value="${professor.value}" th:text="${professor.label}"></option>
+								<option th:value="${currProf}" th:text="${currProfName}" selected></option>							
+							</select>
+						</div>	
+					</div>	
+						
 					<div class="form-group row">
 						<div class="col">
 							<label>Select Time Slot</label>
@@ -59,7 +62,9 @@
 					
 					<div class="form-group row">
 						<div class="col">
+							<!-- <div style="color:red" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div> -->
 							<label>Course Code</label>
+							<p style="color:red">This field cannot be empty and must have the structure AZ-123-01</p>
 							<input type="text" class="form-control" th:field="*{code}">
 						</div>
 						<div class="col">

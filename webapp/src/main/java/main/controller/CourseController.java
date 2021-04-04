@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
 
 
 @Controller
@@ -72,14 +74,17 @@ public class CourseController {
             model.addAttribute("course", course);
             model.addAttribute("DAYS", DAYS);
             model.addAttribute("TIMES", TIMES);
-            return "/new-course";
+            return "new-course";
         }
    
         // NOTA: se rompe si faltan profesor o materia. ARREGLARLO //
         // tiene una solución temporal //
         
 		@PostMapping("/processForm")
-        public String addCourse(@ModelAttribute Course course, SessionStatus status) {	
+        public String addCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status) {	
+			if(bindingResult.hasErrors()) {
+				return "new-course";
+			}
 			
 			// these ifs are necessary for the method not to break if autocomplete is empty
 			if(course.getProfessor().getId() == 0) {
@@ -114,31 +119,29 @@ public class CourseController {
             if(id >= 0) {
                 course = courseService.getById(id);
                 if(course != null) {
-                	String profName = course.getProfessor().getLastName() +", "+course.getProfessor().getFirstName();
-                	String subjName = course.getSubject().getName();
-                	List<String> oldValues = new ArrayList<>(Arrays.asList("Current subject: " + subjName,"Current professor: " + profName));
+                	List<KeyValueProfessor> professors = professorList();
+                	List<KeyValueSubject> subjects = subjectList();	
                 	model.addAttribute("course", course);
+                	model.addAttribute("currProf", course.getProfessor_id());
+                	model.addAttribute("currSubj", course.getSubject_id());
+                	model.addAttribute("currProfName", course.getProfessor().getLastName().concat(", ").concat(course.getProfessor().getFirstName()));
+                	model.addAttribute("currSubjName", course.getSubject().getName());
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
-                    model.addAttribute("oldValues", oldValues);
-                    return "/edit-course";
+                    model.addAttribute("subjects",subjects);
+                    model.addAttribute("professors", professors);
+                    
+                    return "edit-course";
                 }
             }
             return "redirect:/coursesAdmin";
         }
         
 		@PostMapping("/processForm2")
-        public String editCourse(@ModelAttribute Course course, SessionStatus status) {	
-			
-			// these ifs are necessary for the method not to break if autocomplete is empty
-			if(course.getProfessor().getId() == 0) {
-				course.getProfessor().setId(1);
+        public String editCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status) {	
+			if(bindingResult.hasErrors()) {
+				return "redirect:/coursesAdmin";
 			}
-			if(course.getSubject().getId() == 0) {
-				course.getSubject().setId(1);
-			}
-			// end of issues
-			
 			course.setProfessorId();
 			course.setSubjectId();
 			courseService.save(course);
@@ -185,7 +188,33 @@ public class CourseController {
         public String viewCourse(@PathVariable int id, Model model) {
         	Subject subject = subjectService.getById(id);
         	model.addAttribute("subject", subject);
-        	return "/subjectView";
+        	return "subject-view";
         }
         
+        
+        public List<KeyValueSubject> subjectList() {
+            List<Subject> subjects = subjectService.getAll();
+            List<KeyValueSubject> list = new ArrayList<>();
+            for(Subject sub : subjects) {
+            	KeyValueSubject kvs = new KeyValueSubject();
+            	kvs.setValue(sub.getId());
+            	kvs.setLabel(sub.getName());
+            	list.add(kvs);
+            }
+            return list;
+        }
+        
+        public List<KeyValueProfessor> professorList() {
+            List<Professor> professors = professorService.getAllActive();
+            List<KeyValueProfessor> list = new ArrayList<>();
+            for(Professor prof : professors) {
+            	KeyValueProfessor kvp = new KeyValueProfessor();
+            	kvp.setValue(prof.getId());
+            	String fullName = prof.getLastName() + ", " + prof.getFirstName();
+            	kvp.setLabel(fullName);
+            	list.add(kvp);
+            }
+            return list;
+        }
+
 }

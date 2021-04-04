@@ -23,13 +23,15 @@
 				<div class="form-group">
 					<div class="row">
 						<label style="padding-right:10px">Is Active </label> 
-						<input type="checkbox" th:field="*{isActive}" value="true"> 
+						<input type="checkbox" th:field="*{isActive}" checked="checked"> 
 					</div>	
 					<div class="row">
+						<div style="color:red" th:if="${#fields.hasErrors('nationalID')}" th:errors="*{nationalID}"></div>
 						<label>National ID</label>
 						<input type="text" class="form-control" th:field="*{nationalID}">
 					</div>
 					<div class="row">
+						<div style="color:red" th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}"></div>
 						<label>Employee ID</label>
 						<input type="text" class="form-control" th:field="*{employeeID}">
 					</div>	

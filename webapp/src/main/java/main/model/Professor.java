@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="professors")
@@ -21,8 +23,11 @@ public class Professor  implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+	@NotEmpty(message="this field cannot be empty")
 	@Column(name="national_id")
 	private String nationalID;
+	@NotEmpty(message="this field cannot be empty")
+	@Pattern(regexp="^[A-Z]{2}-[0-9]{3}$", message="the code should have the form AZ-123")
 	@Column(name="employee_id")
 	private String employeeID;
     @Column(name="is_active")

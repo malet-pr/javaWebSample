@@ -14,7 +14,7 @@ insert into subjects (name,description) values ("PHYSICS-101", "Mauris quis feli
 insert into subjects (name,description) values ("COMP-SCIENCE-101", "Aliquam ac rutrum risus. Suspendisse orci magna, posuere ut varius a, scelerisque sed dui. Aenean tristique mollis orci quis varius. Suspendisse potenti. Mauris quis laoreet arcu, sed lobortis enim. Aliquam tortor leo, vestibulum vitae vehicula vel, laoreet eget purus. Ut tincidunt tincidunt nunc in aliquet. In ex lacus, feugiat in nisl quis, tincidunt tempor tellus. Maecenas rhoncus ipsum est.");
 
 /* POPULATE TABLE PROFESSORS*/
-insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("-","-",true,"","TBA");
+insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("0","ZZ-000",true," ","TBA");
 insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("12349","AA-123",true,"John","Smith");
 insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("32459","AB-234",true,"Mark","Silverman");
 insert into professors (national_id,employee_id,is_active,first_name,last_name) values ("94679","DU-333",true,"Lucile","West");

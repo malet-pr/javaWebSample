@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -21,6 +23,8 @@ public class Course implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@NotEmpty(message="this field cannot be empty")
+	@Pattern(regexp="^[A-Z]{2}-[0-9]{3}-[0-9]{2}$", message="the code should have the form AZ-123-01")
 	private String code;
 	private String time;
 	private String day;
@@ -49,7 +53,7 @@ public class Course implements Serializable{
 	public Course() {
 		this.professor = new Professor();
 		this.subject = new Subject();
-		this.students = new HashSet();
+		this.students = new HashSet<Student>();
 	}
 	
 	/**

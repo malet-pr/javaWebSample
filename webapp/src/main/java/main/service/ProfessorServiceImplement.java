@@ -63,5 +63,10 @@ public class ProfessorServiceImplement implements ProfessorService {
 	public List<Professor> findByLastNameWithoutTBAAndIsActive() {
 		return professorRepository.findByLastNameWithoutTBAAndIsActive();
 	}
+
+	@Override
+	public List<Professor> getAllActive() {
+		return professorRepository.getAllActive();
+	}
 	
 }

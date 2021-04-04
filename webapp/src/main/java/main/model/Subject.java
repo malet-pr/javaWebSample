@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,11 +21,12 @@ public class Subject  implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+	
     private String name;
+	
     @Column(length=1000)
     private String description;
     
-    @Embedded
 	@OneToMany(mappedBy="subject", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Set<Course> courses;
     
