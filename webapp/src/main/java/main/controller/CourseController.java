@@ -7,8 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -27,6 +30,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -137,10 +141,18 @@ public class CourseController {
             return "redirect:/coursesAdmin";
         }
         
-		@PostMapping("/processForm2")
-        public String editCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status) {	
+		@RequestMapping(value="/processForm2", method={RequestMethod.PATCH,RequestMethod.GET})
+        public String editCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status,RedirectAttributes redirectAttributes) {	
 			if(bindingResult.hasErrors()) {
-				return "redirect:/coursesAdmin";
+				List<KeyValueProfessor> professors = professorList();
+            	List<KeyValueSubject> subjects = subjectList();	
+				redirectAttributes.addFlashAttribute("currProf", course.getProfessor_id());
+				redirectAttributes.addFlashAttribute("currSubj", course.getSubject_id());
+				redirectAttributes.addFlashAttribute("currProfName", course.getProfessor().getLastName().concat(", ").concat(course.getProfessor().getFirstName()));
+				redirectAttributes.addFlashAttribute("currSubjName", course.getSubject().getName());
+				redirectAttributes.addFlashAttribute("subjects",subjects);
+				redirectAttributes.addFlashAttribute("professors", professors);
+				return "edit-course";
 			}
 			course.setProfessorId();
 			course.setSubjectId();

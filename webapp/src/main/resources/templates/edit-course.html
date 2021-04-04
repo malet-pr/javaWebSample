@@ -21,7 +21,7 @@
 				<h2>Edit course</h2>
 				<br>
 				
-				<form action="#" th:action="@{/processForm2}" th:object="${course}" method="post">
+				<form action="#" th:action="@{/processForm2}" th:object="${course}" method="patch">
 					<div class="form-group">
 						<input type="hidden" th:field="*{id}">
 					</div>	
@@ -62,7 +62,7 @@
 					
 					<div class="form-group row">
 						<div class="col">
-							<!-- <div style="color:red" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div> -->
+							<!-- <div style="color:red" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></div> --> 
 							<label>Course Code</label>
 							<p style="color:red">This field cannot be empty and must have the structure AZ-123-01</p>
 							<input type="text" class="form-control" th:field="*{code}">
