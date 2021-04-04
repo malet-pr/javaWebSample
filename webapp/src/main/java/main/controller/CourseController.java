@@ -47,7 +47,7 @@ public class CourseController {
     private List<String> TIMES = new ArrayList<>(
         Arrays.asList("9-11 AM","11-1 AM/PM","1-3 PM","3-5 PM","5-7 PM"));
     
-    	@GetMapping({"/","/home"})
+    	@GetMapping({"/","/home","/index"})
     	public String getHomePage() {   		
     		return "home";
     	}

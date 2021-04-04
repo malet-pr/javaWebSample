@@ -14,7 +14,15 @@
 	<div class="container my-4">
 		<div class="text-center">
 			<h2>WELCOME TO ACME UNIVERSITY</h2>
-			<a th:href="@{/login}" class="btn btn-secondary btn-lg float-right">Log In</a>
+			
+			<div sec:authorize="isAnonymous()">
+			    <a href="/login" th:href="@{/login}" class="btn btn-secondary btn-lg float-right">Log In</a>
+			</div>
+			<div sec:authorize="!isAnonymous()">
+				<form th:action="@{/logout}" method="post">
+				    <input type="submit" value="Logout" class="btn btn-secondary float-right" />
+				</form>
+			</div>
 		</div>
 		<br><br><br><br><br><br>
 		<div class="text-center">
