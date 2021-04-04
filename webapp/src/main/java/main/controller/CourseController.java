@@ -52,9 +52,16 @@ public class CourseController {
     		return "home";
     	}
 
-        @GetMapping("/courses")
-        public String getCoursesList(Model model) {
-            List<Course> courses = courseService.getAll();
+        @GetMapping("/coursesAdmin")
+        public String getCoursesListA(Model model) {
+        	List<Course> courses = courseService.getAll();
+            model.addAttribute("courses", courses);
+            return "courses";
+        }
+        
+        @GetMapping("/coursesStudent")
+        public String getCoursesListS(Model model) {
+        	List<Course> courses = courseService.getAvailable();
             model.addAttribute("courses", courses);
             return "courses";
         }
@@ -87,7 +94,7 @@ public class CourseController {
 			course.setSubjectId();
 			courseService.save(course);
 			status.isComplete();
-            return "redirect:/courses";   
+            return "redirect:/coursesAdmin";   
 		}
                 
         @GetMapping("/deleteCourse/{id}")
@@ -98,7 +105,7 @@ public class CourseController {
                     courseService.delete(id);
                 }
             }
-            return "redirect:/courses";
+            return "redirect:/coursesAdmin";
         }
         
         @GetMapping("/editCourse/{id}")
@@ -110,10 +117,6 @@ public class CourseController {
                 	String profName = course.getProfessor().getLastName() +", "+course.getProfessor().getFirstName();
                 	String subjName = course.getSubject().getName();
                 	List<String> oldValues = new ArrayList<>(Arrays.asList("Current subject: " + subjName,"Current professor: " + profName));
-                	
-                    Professor oldProfessor = course.getProfessor();
-                    Subject oldSubject = course.getSubject();
-                    
                 	model.addAttribute("course", course);
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
@@ -121,7 +124,7 @@ public class CourseController {
                     return "/edit-course";
                 }
             }
-            return "redirect:/courses";
+            return "redirect:/coursesAdmin";
         }
         
 		@PostMapping("/processForm2")
@@ -140,7 +143,7 @@ public class CourseController {
 			course.setSubjectId();
 			courseService.save(course);
 			status.isComplete();
-            return "redirect:/courses";   
+            return "redirect:/coursesAdmin";   
 		}
 
         @GetMapping("/professorList")
@@ -173,9 +176,9 @@ public class CourseController {
         }
         
         @GetMapping("/addStudent/{id}")
-        public String addStudent(@PathVariable int id, Authentication authentication) {
-        	courseService.addStudent(id, authentication.getName());
-        	return "redirect:/courses";
+        public String addStudent(@PathVariable int id, Authentication auth) {
+        	courseService.addStudent(id, auth.getName());
+        	return "redirect:/coursesStudent";
         }  
         
         @GetMapping("/viewSubject/{id}")

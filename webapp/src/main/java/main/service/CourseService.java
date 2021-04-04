@@ -10,5 +10,6 @@ public interface CourseService{
 	public void save(Course course);
 	public void delete(int id);
 	public void addStudent(int course_id, String username);
+	public List<Course> getAvailable();
 	
 }

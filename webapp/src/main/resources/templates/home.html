@@ -17,8 +17,9 @@
 		</div>
 		<br><br><br><br><br><br>
 		<div class="text-center">
-			<a th:href="@{/courses}" class="btn btn-primary btn-lg">See All Courses</a>
-			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin-courses/addCourse}" class="btn btn-warning btn-lg">Add New Course</a>
+			<a sec:authorize="hasRole('ROLE_STUDENT')" th:href="@{/coursesStudent}" class="btn btn-primary btn-lg">See All Courses</a>
+			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/coursesAdmin}" class="btn btn-primary btn-lg">See All Courses</a>
+			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/addCourse}" class="btn btn-warning btn-lg">Add New Course</a>
 			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/professors}" class="btn btn-danger btn-lg">See All Professors</a>
 			<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/addProfessor}" class="btn btn-success btn-lg">Add New Professor</a>
 		</div>

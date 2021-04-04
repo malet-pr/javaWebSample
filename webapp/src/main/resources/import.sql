@@ -1,9 +1,9 @@
 /* POPULATE TABLE CLASSES*/
-insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("AA-111-01", 2, 2, "9-11 AM", "Mon-Thu", 25);
+insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("AA-111-01", 2, 2, "9-11 AM", "Mon-Thu", 2);
 insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("AB-121-02", 3, 3, "1-3 PM", "Mon-Wed-Thu", 50);
 insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("BB-102-03", 4, 4, "9-11 AM", "Tue-Fri-Sat", 50);
 insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("BD-101-01", 5, 5, "3-5 PM", "Tue-Fri", 15);
-insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("CA-100-02", 6, 6, "11-1 AM/PM", "Wed-Sat", 15);
+insert into classes (code,subject_id,professor_id,time,day,max_capacity) values ("CA-100-02", 6, 6, "11-1 AM/PM", "Wed-Sat", 0);
 
 /* POPULATE TABLE SUBJECTS */
 insert into subjects (name,description) values ("TBA", "not available");

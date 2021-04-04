@@ -23,7 +23,7 @@ public class ProfessorServiceImplement implements ProfessorService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Professor> getAll() {
-		return (List<Professor>) professorRepository.findAll(Sort.by(Sort.Direction.ASC, "fullName"));
+		return (List<Professor>) professorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastName"));
 	}
 
 	@Override
@@ -52,6 +52,16 @@ public class ProfessorServiceImplement implements ProfessorService {
 	@Override
 	public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term) {
 		return professorRepository.findByLastNameLikeIgnoreCaseAndIsActive(term);
+	}
+
+	@Override
+	public List<Professor> findByLastNameWithoutTBA() {
+		return professorRepository.findByLastNameWithoutTBA();
+	}
+
+	@Override
+	public List<Professor> findByLastNameWithoutTBAAndIsActive() {
+		return professorRepository.findByLastNameWithoutTBAAndIsActive();
 	}
 	
 }

@@ -11,6 +11,8 @@ public interface ProfessorService{
 	public void delete(int id);
 	public List<Professor> findByLastNameLikeIgnoreCase(String term);
 	public List<Professor> findByLastNameLikeIgnoreCaseAndIsActive(String term);
+	public List<Professor> findByLastNameWithoutTBA();
+	public List<Professor> findByLastNameWithoutTBAAndIsActive();
 
 }
 

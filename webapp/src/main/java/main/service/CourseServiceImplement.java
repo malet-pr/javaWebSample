@@ -1,5 +1,6 @@
 package main.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,19 @@ public class CourseServiceImplement implements CourseService {
 			course.getStudents().add(student);
 			courseRepository.save(course);
 		}
+	}
+
+	@Override
+	public List<Course> getAvailable() {
+		List<Course> all = courseRepository.findAll(Sort.by(Sort.Direction.ASC, "code"));
+		List<Course> available = new ArrayList<Course>();
+		for(Course course: all) {
+			if(course.getStudents().size() < course.getCapacity()) {
+				available.add(course);
+			}
+		}
+		
+		return available;
 	}
 
 }

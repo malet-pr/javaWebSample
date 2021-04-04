@@ -29,12 +29,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/courses").hasAnyRole("ADMIN","STUDENT")
 			.anyRequest().authenticated()
 			.and()
-			.formLogin().permitAll()
+			.formLogin().loginPage("/login").permitAll()
 			.and()
 			.logout().permitAll()
 			.and()
 			.exceptionHandling().accessDeniedPage("/error_403");
 	}
+	
 
 	@Autowired
 	public void ConfigurerGlobal(AuthenticationManagerBuilder build) throws Exception {	
