@@ -7,11 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -81,15 +78,13 @@ public class CourseController {
             return "new-course";
         }
    
-        // NOTA: se rompe si faltan profesor o materia. ARREGLARLO //
-        // tiene una solución temporal //
-        
-		@PostMapping("/processForm")
+        // NOTA: se rompe si faltan profesor o materia//
+        // tiene una solución temporal //  
+		@PostMapping(value="/processForm")
         public String addCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status) {	
-			if(bindingResult.hasErrors()) {
+            if(bindingResult.hasErrors()) {	    
 				return "new-course";
 			}
-			
 			// these ifs are necessary for the method not to break if autocomplete is empty
 			if(course.getProfessor().getId() == 0) {
 				course.getProfessor().setId(1);
@@ -97,8 +92,7 @@ public class CourseController {
 			if(course.getSubject().getId() == 0) {
 				course.getSubject().setId(1);
 			}
-			// end of issues
-			
+			// end of issues	
 			course.setProfessorId();
 			course.setSubjectId();
 			courseService.save(course);
@@ -118,50 +112,27 @@ public class CourseController {
         }
         
         @GetMapping("/editCourse/{id}")
-        public String editCourseString(@PathVariable int id, Model model) {
+        public String editCourseString(@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
             Course course = null;
             if(id >= 0) {
                 course = courseService.getById(id);
+                String currSubjName = course.getSubject().getName();
+                String currProfName = course.getProfessor().getLastName().concat(", ").concat(course.getProfessor().getFirstName());
                 if(course != null) {
-                	List<KeyValueProfessor> professors = professorList();
-                	List<KeyValueSubject> subjects = subjectList();	
                 	model.addAttribute("course", course);
                 	model.addAttribute("currProf", course.getProfessor_id());
                 	model.addAttribute("currSubj", course.getSubject_id());
-                	model.addAttribute("currProfName", course.getProfessor().getLastName().concat(", ").concat(course.getProfessor().getFirstName()));
-                	model.addAttribute("currSubjName", course.getSubject().getName());
+                	model.addAttribute("currProfName", currProfName);
+                	model.addAttribute("currSubjName", currSubjName);
                     model.addAttribute("DAYS", DAYS);
                     model.addAttribute("TIMES", TIMES);
-                    model.addAttribute("subjects",subjects);
-                    model.addAttribute("professors", professors);
-                    
-                    return "edit-course";
+                    return "new-course";
                 }
             }
             return "redirect:/coursesAdmin";
         }
-        
-		@RequestMapping(value="/processForm2", method={RequestMethod.PATCH,RequestMethod.GET})
-        public String editCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status,RedirectAttributes redirectAttributes) {	
-			if(bindingResult.hasErrors()) {
-				List<KeyValueProfessor> professors = professorList();
-            	List<KeyValueSubject> subjects = subjectList();	
-				redirectAttributes.addFlashAttribute("currProf", course.getProfessor_id());
-				redirectAttributes.addFlashAttribute("currSubj", course.getSubject_id());
-				redirectAttributes.addFlashAttribute("currProfName", course.getProfessor().getLastName().concat(", ").concat(course.getProfessor().getFirstName()));
-				redirectAttributes.addFlashAttribute("currSubjName", course.getSubject().getName());
-				redirectAttributes.addFlashAttribute("subjects",subjects);
-				redirectAttributes.addFlashAttribute("professors", professors);
-				return "edit-course";
-			}
-			course.setProfessorId();
-			course.setSubjectId();
-			courseService.save(course);
-			status.isComplete();
-            return "redirect:/coursesAdmin";   
-		}
 
-        @GetMapping("/professorList")
+        @GetMapping({"/editCourse/professorList","/professorList"})
         @ResponseBody
         public List<KeyValueProfessor> professorList(@RequestParam String term) {
             List<Professor> professors = professorService.findByLastNameLikeIgnoreCaseAndIsActive(term);
@@ -176,7 +147,7 @@ public class CourseController {
             return list;
         }
 
-        @GetMapping("/subjectList")
+        @GetMapping({"/editCourse/subjectList","/subjectList"})
         @ResponseBody
         public List<KeyValueSubject> subjectList(@RequestParam String term) {
             List<Subject> subjects = subjectService.findByNameLikeIgnoreCase(term);
@@ -201,32 +172,6 @@ public class CourseController {
         	Subject subject = subjectService.getById(id);
         	model.addAttribute("subject", subject);
         	return "subject-view";
-        }
-        
-        
-        public List<KeyValueSubject> subjectList() {
-            List<Subject> subjects = subjectService.getAll();
-            List<KeyValueSubject> list = new ArrayList<>();
-            for(Subject sub : subjects) {
-            	KeyValueSubject kvs = new KeyValueSubject();
-            	kvs.setValue(sub.getId());
-            	kvs.setLabel(sub.getName());
-            	list.add(kvs);
-            }
-            return list;
-        }
-        
-        public List<KeyValueProfessor> professorList() {
-            List<Professor> professors = professorService.getAllActive();
-            List<KeyValueProfessor> list = new ArrayList<>();
-            for(Professor prof : professors) {
-            	KeyValueProfessor kvp = new KeyValueProfessor();
-            	kvp.setValue(prof.getId());
-            	String fullName = prof.getLastName() + ", " + prof.getFirstName();
-            	kvp.setLabel(fullName);
-            	list.add(kvp);
-            }
-            return list;
         }
 
 }
