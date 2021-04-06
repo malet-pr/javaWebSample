@@ -81,10 +81,12 @@ public class CourseController {
         // NOTA: se rompe si faltan profesor o materia//
         // tiene una solución temporal //  
 		@PostMapping(value="/processForm")
-        public String addCourse(@Valid @ModelAttribute Course course, BindingResult bindingResult, SessionStatus status) {	
-            if(bindingResult.hasErrors()) {	    
+        public String addCourse(/*@Valid*/ @ModelAttribute Course course/*, BindingResult bindingResult*/, SessionStatus status) {	
+           /*
+			if(bindingResult.hasErrors()) {	    
 				return "new-course";
 			}
+			*/
 			// these ifs are necessary for the method not to break if autocomplete is empty
 			if(course.getProfessor().getId() == 0) {
 				course.getProfessor().setId(1);
