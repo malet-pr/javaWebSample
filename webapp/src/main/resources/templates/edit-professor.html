@@ -26,14 +26,14 @@
 						<input type="checkbox" th:field="*{isActive}" checked="checked"> 
 					</div>	
 					<div class="row">
-						<div style="color:red" th:if="${#fields.hasErrors('nationalID')}" th:errors="*{nationalID}"></div>
 						<label>National ID</label>
 						<input type="text" class="form-control" th:field="*{nationalID}">
+						<div style="color:red" th:if="${#fields.hasErrors('nationalID')}" th:errors="*{nationalID}"></div>
 					</div>
 					<div class="row">
-						<div style="color:red" th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}"></div>
 						<label>Employee ID</label>
 						<input type="text" class="form-control" th:field="*{employeeID}">
+						<div style="color:red" th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}"></div>
 					</div>	
 					<div class="row">
 						<label>First Name</label>

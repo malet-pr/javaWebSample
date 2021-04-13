@@ -27,7 +27,7 @@ public class Professor  implements Serializable{
 	@Column(name="national_id")
 	private String nationalID;
 	@NotEmpty(message="this field cannot be empty")
-	@Pattern(regexp="^[A-Z]{2}-[0-9]{3}$", message="the code should have the form AZ-123")
+	@Pattern(regexp="^[A-Z]{2}-[0-9]{3}$", message="Employee ID should have the form AZ-123")
 	@Column(name="employee_id")
 	private String employeeID;
     @Column(name="is_active")
