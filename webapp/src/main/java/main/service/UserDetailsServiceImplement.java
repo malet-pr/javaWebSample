@@ -28,8 +28,17 @@ public class UserDetailsServiceImplement implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		for(Role role: userSys.getAuthorities()) {
 			authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
-		}	
+		}		
 		return new User(userSys.getUsername(), userSys.getPassword(),userSys.getEnabled(), true,true,true, authorities);
 	}
-
 }
+
+/*
+User(String username,
+    String password,
+    boolean enabled,
+    boolean accountNonExpired,
+    boolean credentialsNonExpired,
+    boolean accountNonLocked,
+    Collection<? extends GrantedAuthority> authorities)
+*/
